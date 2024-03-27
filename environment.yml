@@ -7,4 +7,5 @@ dependencies:
   - pandas
   - matplotlib
   - jupyterlab
+  - seaborn
 prefix: /Users/benchen/miniconda3/envs/green-development-planner
