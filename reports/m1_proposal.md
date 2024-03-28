@@ -11,6 +11,36 @@ This tool aims to ensure efficient and equitable use of resources, supporting a 
 
 # Description and Data
 
+The dataset used in this project provides comprehensive insights into sustainable energy indicators and related factors across different countries from the year of 2000 to 2020. It enables analysis of crucial aspects such as electricity access, renewable energy adoption, carbon emissions, financial flows, and economic growth. Researchers can compare nations, monitor progress towards sustainable development goals, and gain deep insights into global energy consumption trends over time.
+
+The dataset consists a total of 21 variables. Here is summary table:
+
+| Variable Name                                            | Datatype (default)          | Description                                                                                     |
+|----------------------------------------------------------|-----------------------------|-------------------------------------------------------------------------------------------------|
+| Entity                                                   | Object                      | The name of the country or region for which the data is reported.                              |
+| Year                                                     | Integer                     | The year for which the data is reported, spanning from 2000 to 2020.                            |
+| Access to electricity (% of population)                 | Float                       | The percentage of the population with access to electricity.                                    |
+| Access to clean fuels for cooking (% of population)     | Float                       | The percentage of the population primarily relying on clean fuels for cooking.                   |
+| Renewable-electricity-generating-capacity-per-capita    | Float                       | The generating capacity of renewable electricity per capita (watts per capita)                   |
+| Financial flows to developing countries (US $)         | Float                       | The dollar amount in aid and assistance from developed countries for clean energy projects.      |
+| Renewable energy share in total final energy consumption (%) | Float                   | The percentage of renewable energy in final energy consumption.                                  |
+| Electricity from fossil fuels (TWh)                    | Float                       | The amount of electricity generated from fossil fuels (coal, oil, gas) in terawatt-hours.        |
+| Electricity from nuclear (TWh)                          | Float                       | The amount of electricity generated from nuclear power in terawatt-hours.                        |
+| Electricity from renewables (TWh)                       | Float                       | The amount of electricity generated from renewable sources (hydro, solar, wind, etc.) in TWh.    |
+| Low-carbon electricity (% electricity)                  | Float                       | The percentage of electricity from low-carbon sources (nuclear and renewables).                   |
+| Primary energy consumption per capita (kWh/person)      | Float                       | The amount of primary energy consumption per capita in kilowatt-hours.                           |
+| Energy intensity level of primary energy (MJ/$2011 PPP GDP) | Float                   | The amount of energy supplied to the economy per unit value of economic output.                  |
+| CO2 emissions (metric tons per capita)                  | Float                       | The amount of carbon dioxide emissions per capita in metric tons.                                |
+| Renewables (% equivalent primary energy)                | Float                       | The percentage of equivalent primary energy derived from renewable sources.                       |
+| GDP growth (annual %)                                   | Float                       | The annual GDP growth rate based on constant local currency.                                     |
+| GDP per capita                                          | Float                       | The gross domestic product per capita of the country.                                            |
+| Population Density (P/Km2)                              | Object                      | The population density in persons per square kilometer.                                           |
+| Land Area (Km2)                                         | Float                       | The total land area in square kilometers.                                                       |
+| Latitude                                                 | Float                       | The latitude of the country's centroid in decimal degrees.                                       |
+| Longitude                                                | Float                       | The longitude of the country's centroid in decimal degrees.                                      |
+
+Based on our research question, our primary focus will be on several key variables, namely: `Entity`, `Year`, `Electricity from fossil fuels (TWh)`, `Electricity from nuclear (TWh)`, `Electricity from renewables (TWh)`, `Financial flows to developing countries (US $)`, `Renewable energy share in total final energy consumption (%)`, and `Access to electricity (% of population)`. By analyzing these variables, we aim to construct visualizations that facilitate the identification of countries with significant potential for green development.
+
 # Research Question  
 
 Mary is a policy advisor focusing on enhancing energy access and promoting renewable energy initiatives globally. Mary's role involves identifying countries / regions where the funding and resources can significantly boost their transition towards sustainable energy, particularly in areas lagging behind in electricity access and clean energy.  
