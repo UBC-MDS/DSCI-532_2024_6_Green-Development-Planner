@@ -1,0 +1,11 @@
+name: green-development-planner
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - pandas
+  - matplotlib
+  - jupyterlab
+  - seaborn
+prefix: /Users/benchen/miniconda3/envs/green-development-planner
