@@ -2,6 +2,8 @@ from dash import Dash, dcc, html, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
+import altair as alt
+import dash_vega_components as dvc
 
 # Load the dataset
 processed_data = pd.read_csv("data/processed_data.csv")
@@ -17,7 +19,11 @@ app.layout = dbc.Container([
         options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
         value=processed_data['Entity'].unique()[0],  # default value
     ),
-    dcc.Graph(id='pie-chart'),
+    dbc.Row([
+        dbc.Col(dcc.Graph(id='pie-chart')),
+        dbc.Col(dvc.Vega(id='electricity-production')),
+    ])
+    ,
     dbc.Row([
         dbc.Col(dcc.Graph(id='bar-chart-electricity'), width=6),
         dbc.Col(dcc.Graph(id='bar-chart-financial-flows'), width=6),
@@ -46,6 +52,39 @@ def update_pie_chart(selected_entity):
     
     # Return the figure to the output
     return fig
+
+#callback to update electricity-production chart based on selected entity
+@callback(
+    Output('electricity-production', 'spec'),
+    Input('entity-dropdown', 'value')
+)
+
+def update_arc_chart(selected_entity):
+    # Filter the data for the selected entity
+    filtered_data = processed_data[processed_data['Entity'] == selected_entity]
+    
+    # Sum up the electricity production share values for all the years for the entity
+    # If the data is already averaged over the years, this step is not necessary
+    green_electricity = filtered_data['Electricity from renewables (TWh)'].sum()
+    nuclear_electricity = filtered_data['Electricity from nuclear (TWh)'].sum()
+    fossil_electricity = filtered_data['Electricity from fossil fuels (TWh)'].sum()
+    
+    #store these number in a dataframe for altair to use
+    source = pd.DataFrame({
+        'Energy Source' : ['Renewables','Nuclear','Fossil Fuels'],
+        'Value' : [green_electricity, nuclear_electricity, fossil_electricity]
+        #'Value' : [4,50,6]
+    })
+    # Construct the arc chart figure using altair
+    fig_electricity_production = alt.Chart(source).mark_arc(innerRadius=50).encode(
+        theta = 'Value',
+        color = 'Energy Source'
+    ).properties(
+        title = 'Electricity Generation'
+    ).interactive().to_dict()
+
+    return fig_electricity_production
+
 
 # Callbacks to update the bar charts based on selected entity
 @callback(
