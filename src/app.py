@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 
 # Load the dataset
-processed_data = pd.read_csv("../data/processed_data.csv")
+processed_data = pd.read_csv("data/processed_data.csv")
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
