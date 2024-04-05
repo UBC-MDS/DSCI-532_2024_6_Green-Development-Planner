@@ -99,4 +99,5 @@ def update_bar_charts(selected_entity):
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
+    server = app.server
