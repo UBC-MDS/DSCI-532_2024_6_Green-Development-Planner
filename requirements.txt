@@ -1,0 +1,13 @@
+gunicorn==21.2.*
+dash==2.16.*
+dash-bootstrap-components==1.5.*
+dash-vega-components==0.9.*
+altair==5.3.*
+pandas==2.2.*
+python==3.12.*
+pandas==2.2.*
+matplotlib==3.8.*
+jupyterlab==4.1.*
+seaborn==0.13.*
+dash==2.16.*
+dash-bootstrap-components==1.5.*
