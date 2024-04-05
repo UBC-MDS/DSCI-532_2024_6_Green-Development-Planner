@@ -8,6 +8,7 @@ processed_data = pd.read_csv("data/processed_data.csv")
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 # Define the layout
 app.layout = dbc.Container([
@@ -100,4 +101,4 @@ def update_bar_charts(selected_entity):
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=False)
-    server = app.server
+
