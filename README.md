@@ -1,14 +1,18 @@
 # Green Development Planner
 
-We are aiming for a greener planet.
+Striving for a more sustainable Earth.
 
 ![](img/cover.jpg){width="893"}
 
 Geoff McKay, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons
 
-# Summary
+## The Challenge
 
-This is a data visualization dashboard to aid policy makers and funding bodies in allocating aid funds effectively for renewable energy infrastructure in developing countries. By providing insights into energy needs, current energy usage, and renewable potential, the dashboard will guide the strategic distribution of resources to areas where they can have the most significant impact on sustainable development and energy access.
+One of the world's pressing challenges is achieving equal access to renewable energy in developing nations, a key to sustainable development and economic prosperity. Addressing this issue requires strategic resource allocation, which requires a deep understanding of each nation's energy needs and renewable capacity. By targeting areas where finantial support of green energy projects yields the most impact, we can guide efforts and investments to foster development, equity, and environmental conservation.
+
+## Our vision
+
+We have developed a dashboard to illuminate these critical insights for decision-makers and funding bodies. Our dashboard highlights where resources can make the most significant impact. By providing a clear global overview of energy consumption, potential for renewables, and current investment flows, we empower stakeholders to make data-driven decisions. Our ultimate goal is to facillitate the global transition to renewable energy, a key step towards global equity and sustainability.
 
 ## A quick overview
 
