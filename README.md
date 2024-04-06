@@ -2,13 +2,13 @@
 
 Striving for a more sustainable Earth.
 
-![](img/cover.jpg){width="893"}
+![](img/cover.jpg)
 
 Geoff McKay, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons
 
 ## 👀 The Challenge
 
-One of the world's pressing challenges is achieving equal access to renewable energy in developing nations, a key to sustainable development and economic prosperity. Addressing this issue requires strategic resource allocation, which requires a deep understanding of each nation's energy needs and renewable capacity. By targeting areas where finantial support of green energy projects yields the most impact, we can guide efforts and investments to foster development, equity, and environmental conservation.
+One of the world's pressing challenges is achieving equal access to renewable energy in developing nations, a key to sustainable development and economic prosperity. Addressing this issue requires strategic resource allocation, which requires a deep understanding of each nation's energy needs and renewable capacity. By targeting areas where financial support of green energy projects yields the most impact, we can guide efforts and investments to foster development, equity, and environmental conservation.
 
 ## 💡 Our vision
 
@@ -42,12 +42,12 @@ $ git clone git@github.com:UBC-MDS/DSCI-532_2024_6_Green-Development-Planner.git
 
 ### Step 2: Create the virtual environment
 
-Create a new Conda environment using the `environment.yaml` file provided in this repository. This file contains all the necessary dependencies, including both Python and Poetry versions.
+Create a new Conda environment using the `environment.yml` file provided in this repository. This file contains all the necessary dependencies, including both Python and Poetry versions.
 
-To create the environment, open your terminal and navigate to the directory where the `environment.yaml` file is located. Then, run the following command:
+To create the environment, open your terminal and navigate to the directory where the `environment.yml` file is located. Then, run the following command:
 
 ``` bash
-$ conda env create -f environment.yaml
+$ conda env create -f environment.yml
 $ conda activate green-development-planner
 ```
 
@@ -57,7 +57,7 @@ For development purpose, set `debug=True` in file `src/app.py`.
 
 ``` bash
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(debug=True)
 ```
 
 ### Step 4: Run the dashboard
