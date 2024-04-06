@@ -41,8 +41,15 @@ metrics = [
 
 # Layout
 left_layout = dbc.Container([
-    dbc.Card([dbc.CardHeader('Project Title'), dbc.CardBody('Green Development Planner')]),
-    dvc.Vega(id='world', spec={}),
+    dcc.Markdown('**Select a Metric:**'),
+    dcc.Dropdown(
+        id='variable', 
+        options=metrics, 
+        value='Access to electricity (% of population)',
+        placeholder="Select a metric",
+        ),
+    html.Br(),
+    dcc.Markdown('**Select a Year:**'),
     dcc.Slider(
         id='year_slider',
         min=gdf['Year'].min(),
@@ -50,13 +57,15 @@ left_layout = dbc.Container([
         value=gdf['Year'].max(),
         marks={str(year): str(year) for year in gdf['Year'].unique() if year % 5 == 0},
         step=20,
-        updatemode="drag"
+        updatemode="drag",
+        tooltip={'placement': 'bottom', 'always_visible': True}
     ),
-    dcc.Dropdown(id='variable', options=metrics, value='Renewable energy share in the total final energy consumption (%)'),
+    dvc.Vega(id='world', spec={}),
 ])
 
 # Define the layout
 right_layout = dbc.Container([
+    dcc.Markdown('**Select a Country:**'),
     dcc.Dropdown(
         id='entity-dropdown',
         options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
@@ -75,12 +84,37 @@ right_layout = dbc.Container([
     dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
 ])
 
+
+description = html.P([
+    "This dashboard offers a high-level overview of renewable energy metrics \
+    across the globe and identifies developing countries with high potential \
+    for green development.",
+    html.Br(),  # Line break
+    "Author: Ben Chen, Hayley Han, Ian MacCarthy, Joey Wu",
+    html.Br(),  # Line break
+    "Latest update/deployment: April 6, 2024",
+    html.Br(),  # Line break
+    html.A('GitHub URL', href='https://github.com/UBC-MDS/DSCI-532_2024_6_Green-Development-Planner', target='_blank')
+])
+
+
 app.layout = dbc.Container([
+    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
+    ]),
+
+    dbc.Row([
+        dbc.Col(
+            description,
+            width=12,
+            style={'font-size': '12px', 'color': '#333', 'margin-top': '20px', 'margin-bottom': '0', 'text-align': 'center', 'font-weight': 'bold'}
+        )
     ])
+
 ])
+
 
 # Server side callbacks/reactivity
 @callback(
@@ -95,10 +129,10 @@ def create_chart(variable, year_slider):
         color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
         tooltip=['Entity', variable]
     )
-    background_map = alt.Chart(world, width=600, height=800).mark_geoshape(color="lightgrey")
+    background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
 
     return(
-        (background_map + non_missing_data).to_dict()
+        (background_map + non_missing_data).properties(height=600).to_dict()
     )
 
 # Callback to update the pie chart based on selected entity
@@ -115,7 +149,7 @@ def update_pie_chart(selected_entity):
     renewable_energy_share = filtered_data['Renewable energy share in the total final energy consumption (%)'].sum()
     
     pie_data = pd.DataFrame({
-        'category': ['Renewable Energy Share', 'Other'],
+        'category': ['Renewables', 'Other'],
         'value': [renewable_energy_share, 100 - renewable_energy_share]
     })
 
@@ -158,7 +192,7 @@ def update_arc_chart(selected_entity):
         color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')),
         tooltip=['Energy Source', 'Value']
     ).properties(
-        title = 'Electricity Generation',
+        title = f'Electricity Generation in {selected_entity}',
         width=150, height=150
     ).interactive().to_dict()
 
@@ -226,6 +260,7 @@ def update_bar_charts(selected_entity):
 )
 def update_pie_chart(selected_entity):
 
+    raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
     filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
 
     gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
