@@ -32,10 +32,10 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
 
 ## Contributors
 
-- Ben Chen
-- Hayley Han
-- Ian MacCarthy
-- Joey Wu
+- Ben Chen ([\@phchen5](https://github.com/phchen5))
+- Yi Han ([\@yhan178](https://github.com/yhan178))
+- Ian MacCarthy ([\@ianm99](https://github.com/ianm99))
+- Joey Wu ([\@joeywwwu](https://github.com/joeywwwu))
 
 ## License
 
