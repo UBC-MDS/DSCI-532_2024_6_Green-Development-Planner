@@ -41,8 +41,15 @@ metrics = [
 
 # Layout
 left_layout = dbc.Container([
-    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
-    dvc.Vega(id='world', spec={}),
+    dcc.Markdown('**Select a Metric:**'),
+    dcc.Dropdown(
+        id='variable', 
+        options=metrics, 
+        value='Access to electricity (% of population)',
+        placeholder="Select a metric",
+        ),
+    html.Br(),
+    dcc.Markdown('**Select a Year:**'),
     dcc.Slider(
         id='year_slider',
         min=gdf['Year'].min(),
@@ -50,13 +57,15 @@ left_layout = dbc.Container([
         value=gdf['Year'].max(),
         marks={str(year): str(year) for year in gdf['Year'].unique() if year % 5 == 0},
         step=20,
-        updatemode="drag"
+        updatemode="drag",
+        tooltip={'placement': 'bottom', 'always_visible': True}
     ),
-    dcc.Dropdown(id='variable', options=metrics, value='Renewable energy share in the total final energy consumption (%)'),
+    dvc.Vega(id='world', spec={}),
 ])
 
 # Define the layout
 right_layout = dbc.Container([
+    dcc.Markdown('**Select a Country:**'),
     dcc.Dropdown(
         id='entity-dropdown',
         options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
@@ -90,13 +99,11 @@ description = html.P([
 
 
 app.layout = dbc.Container([
-
+    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
     ]),
-
-    html.Br(),
 
     dbc.Row([
         dbc.Col(
@@ -122,10 +129,10 @@ def create_chart(variable, year_slider):
         color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
         tooltip=['Entity', variable]
     )
-    background_map = alt.Chart(world, width=600, height=800).mark_geoshape(color="lightgrey")
+    background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
 
     return(
-        (background_map + non_missing_data).to_dict()
+        (background_map + non_missing_data).properties(height=600).to_dict()
     )
 
 # Callback to update the pie chart based on selected entity
