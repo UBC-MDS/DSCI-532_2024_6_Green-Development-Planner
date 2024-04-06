@@ -260,6 +260,7 @@ def update_bar_charts(selected_entity):
 )
 def update_pie_chart(selected_entity):
 
+    raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
     filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
 
     gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
