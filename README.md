@@ -12,13 +12,13 @@ One of the world's pressing challenges is achieving equal access to renewable en
 
 ## 💡 Our vision
 
-We have developed a dashboard to illuminate these critical insights for decision-makers and funding bodies. Our dashboard highlights where resources can make the most significant impact. By providing a clear global overview of energy consumption, potential for renewables, and current investment flows, we empower stakeholders to make data-driven decisions. Our ultimate goal is to facillitate the global transition to renewable energy, a key step towards global equity and sustainability.
+We have developed a dashboard to illuminate these critical insights for decision-makers and funding bodies. Our dashboard highlights where resources can make the most significant impact. By providing a clear global overview of energy consumption, potential for renewables, current investment flows, and country's GDP, we empower stakeholders to make data-driven decisions. Our ultimate goal is to facillitate the global transition to renewable energy, a key step towards global equity and sustainability.
 
 ## 📚 A Quick Overview
 
 Our dashboard offers a high-level overview of renewable energy metrics across the globe. The interactive world map enables users to select and visualize data spanning 20 years, featuring six key indicators: the percentage of renewable energy in total energy consumption, electricity access rates (% of population), financial investments in clean energy projects, and electricity generation breakdown by sources (i.e., fossil fuels, nuclear, and renewables) for each country. A time slider allows for a historical perspective on these indicators.
 
-On the right, the dashboard provides a country-specific analysis with two pie charts and two bar charts. The pie charts display the average share of renewable energy and the electricity generation mix over the last five years. The bar charts compares a country's electricity access and financial flow for clean energy against the world average, again over the last five years. By using the average data of a latest five-year period, we ensure that the information captures the most recent situations, offering users an up-to-date, actionable snapshot of energy development.
+On the right, the dashboard provides a country-specific analysis with two pie charts, two bar charts and one line chart. The pie charts display the average share of renewable energy and the electricity generation mix over the last five years. The bar charts compares a country's electricity access and financial flow for clean energy against the world average, again over the last five years. By using the average data of a latest five-year period, we ensure that the information captures the most recent situations, offering users an up-to-date, actionable snapshot of energy development. The line chart show the country's GPD per capita over a period of 20 years.
 
 ![](img/app.gif)
 
@@ -42,7 +42,7 @@ $ git clone git@github.com:UBC-MDS/DSCI-532_2024_6_Green-Development-Planner.git
 
 ### Step 2: Create the virtual environment
 
-Create a new Conda environment using the `environment.yml` file provided in this repository. This file contains all the necessary dependencies, including both Python and Poetry versions.
+Create a new Conda environment using the `environment.yml` file provided in this repository. This file contains all the necessary dependencies.
 
 To create the environment, open your terminal and navigate to the directory where the `environment.yml` file is located. Then, run the following command:
 
@@ -74,10 +74,10 @@ Contributions are welcome! Check out the [contributing guidelines](CONTRIBUTING.
 
 ## 👥 Contributors
 
-- Ben Chen ([\@phchen5](https://github.com/phchen5))
-- Yi Han ([\@yhan178](https://github.com/yhan178))
-- Ian MacCarthy ([\@ianm99](https://github.com/ianm99))
-- Joey Wu ([\@joeywwwu](https://github.com/joeywwwu))
+-   Ben Chen ([\@phchen5](https://github.com/phchen5))
+-   Yi Han ([\@yhan178](https://github.com/yhan178))
+-   Ian MacCarthy ([\@ianm99](https://github.com/ianm99))
+-   Joey Wu ([\@joeywwwu](https://github.com/joeywwwu))
 
 ## ©️ License
 
