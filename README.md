@@ -12,7 +12,7 @@ One of the world's pressing challenges is achieving equal access to renewable en
 
 ## 💡 Our vision
 
-We have developed a dashboard to illuminate these critical insights for decision-makers and funding bodies. Our dashboard highlights where resources can make the most significant impact. By providing a clear global overview of energy consumption, potential for renewables, current investment flows, and country's GDP, we empower stakeholders to make data-driven decisions. Our ultimate goal is to facillitate the global transition to renewable energy, a key step towards global equity and sustainability.
+We have developed a dashboard to illuminate these critical insights for decision-makers and funding bodies. Our dashboard highlights where resources can make the most significant impact. By providing a clear global overview of energy consumption, potential for renewables, current investment flows, and country's GDP, we empower stakeholders to make data-driven decisions. Our ultimate goal is to facilitate the global transition to renewable energy, a key step towards global equity and sustainability.
 
 ## 📚 A Quick Overview
 
@@ -20,7 +20,7 @@ Our dashboard offers a high-level overview of renewable energy metrics across th
 
 On the right, the dashboard provides a country-specific analysis with two pie charts, two bar charts and one line chart. The pie charts display the average share of renewable energy and the electricity generation mix over the last five years. The bar charts compares a country's electricity access and financial flow for clean energy against the world average, again over the last five years. By using the average data of a latest five-year period, we ensure that the information captures the most recent situations, offering users an up-to-date, actionable snapshot of energy development. The line chart show the country's GPD per capita over a period of 20 years.
 
-![](img/app.gif)
+![demo](img/demo.gif)
 
 ## 💻 Use the App
 
