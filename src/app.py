@@ -6,6 +6,7 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 
+raw_data = pd.read_csv("data/raw/global_data_sustainable_energy.csv")
 processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
 
 world = gpd.read_file("data/preprocessed/world.shp")
@@ -67,15 +68,17 @@ right_layout = dbc.Container([
         dbc.Col(dvc.Vega(id='electricity-production'), width=6),
     ]),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-electricity'), width=6),
+    dbc.Col(dvc.Vega(id='bar-chart-electricity', style={'width': '100%'})),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-financial-flows'), width=6),
+    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
+    html.Br(),
+    dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
 ])
 
 app.layout = dbc.Container([
     dbc.Row([
-        dbc.Col(left_layout, style={'height': '100px'}, width=6),
-        dbc.Col(right_layout, style={'height': '100px'}, width=6),
+        dbc.Col(left_layout, style={'width': '50%'}),
+        dbc.Col(right_layout, style={'width': '50%'}),
     ])
 ])
 
@@ -111,12 +114,6 @@ def update_pie_chart(selected_entity):
     # If the data is already averaged over the years, this step is not necessary
     renewable_energy_share = filtered_data['Renewable energy share in the total final energy consumption (%)'].sum()
     
-    # Construct the pie chart figure using Plotly Express
-    # fig = px.pie(
-    #     names=['Renewable Energy Share', 'Other'],
-    #     values=[renewable_energy_share, 100 - renewable_energy_share],
-    #     title=f"Renewable Energy Share in {selected_entity}"
-    # )
     pie_data = pd.DataFrame({
         'category': ['Renewable Energy Share', 'Other'],
         'value': [renewable_energy_share, 100 - renewable_energy_share]
@@ -127,7 +124,8 @@ def update_pie_chart(selected_entity):
         color=alt.Color('category', legend=alt.Legend(title='Category')),
         tooltip=['category', 'value']
     ).properties(
-        title=f"Renewable Energy Share in {selected_entity}"
+        title=f"Renewable Energy Share in {selected_entity}",
+        width=150, height=150
     ).interactive().to_dict()
     
     # Return the Altair chart object
@@ -160,7 +158,8 @@ def update_arc_chart(selected_entity):
         color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')),
         tooltip=['Energy Source', 'Value']
     ).properties(
-        title = 'Electricity Generation'
+        title = 'Electricity Generation',
+        width=150, height=150
     ).interactive().to_dict()
 
     return fig_electricity_production
@@ -221,6 +220,24 @@ def update_bar_charts(selected_entity):
 
     return fig_electricity, fig_financial_flows
 
+@callback(
+    Output('line-chart-gdp-per-capita', 'spec'),
+    Input('entity-dropdown', 'value')
+)
+def update_pie_chart(selected_entity):
+
+    filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
+
+    gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
+        x=alt.X('Year:T', title='Year'),  # Assuming 'Year' column is datetime, adjust if necessary
+        y=alt.Y('gdp_per_capita', title='GDP per Capita'),
+        tooltip=['Year:T', 'gdp_per_capita']
+    ).properties(
+        title=f"GDP per Capita over Time for {selected_entity}",
+        width=550, height=200
+    ).to_dict()
+
+    return gdp_per_capita_line_plot
 
 # Run the app
 if __name__ == '__main__':
