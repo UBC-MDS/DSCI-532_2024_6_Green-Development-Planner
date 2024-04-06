@@ -41,7 +41,7 @@ metrics = [
 
 # Layout
 left_layout = dbc.Container([
-    dbc.Card([dbc.CardHeader('Project Title'), dbc.CardBody('Green Development Planner')]),
+    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
     dvc.Vega(id='world', spec={}),
     dcc.Slider(
         id='year_slider',
@@ -75,12 +75,39 @@ right_layout = dbc.Container([
     dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
 ])
 
+
+description = html.P([
+    "This dashboard offers a high-level overview of renewable energy metrics \
+    across the globe and identifies developing countries with high potential \
+    for green development.",
+    html.Br(),  # Line break
+    "Author: Ben Chen, Hayley Han, Ian MacCarthy, Joey Wu",
+    html.Br(),  # Line break
+    "Latest update/deployment: April 6, 2024",
+    html.Br(),  # Line break
+    html.A('GitHub URL', href='https://github.com/UBC-MDS/DSCI-532_2024_6_Green-Development-Planner', target='_blank')
+])
+
+
 app.layout = dbc.Container([
+
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
+    ]),
+
+    html.Br(),
+
+    dbc.Row([
+        dbc.Col(
+            description,
+            width=12,
+            style={'font-size': '12px', 'color': '#333', 'margin-top': '20px', 'margin-bottom': '0', 'text-align': 'center', 'font-weight': 'bold'}
+        )
     ])
+
 ])
+
 
 # Server side callbacks/reactivity
 @callback(
@@ -115,7 +142,7 @@ def update_pie_chart(selected_entity):
     renewable_energy_share = filtered_data['Renewable energy share in the total final energy consumption (%)'].sum()
     
     pie_data = pd.DataFrame({
-        'category': ['Renewable Energy Share', 'Other'],
+        'category': ['Renewables', 'Other'],
         'value': [renewable_energy_share, 100 - renewable_energy_share]
     })
 
@@ -158,7 +185,7 @@ def update_arc_chart(selected_entity):
         color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')),
         tooltip=['Energy Source', 'Value']
     ).properties(
-        title = 'Electricity Generation',
+        title = f'Electricity Generation in {selected_entity}',
         width=150, height=150
     ).interactive().to_dict()
 
