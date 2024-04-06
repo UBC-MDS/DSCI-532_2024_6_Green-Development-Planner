@@ -26,9 +26,47 @@ Explore our dashboard to unlock insights into renewable energy access [here](htt
 
 Need help or feedback? Open an issue on our GitHub – we're ready to assist your journey towards informed actions for a sustainable future.
 
+## Developer's Guide
+
+### Step 1: Clone the repository
+
+Start by cloning the repository to your local machine. Open your terminal and run the following command:
+
+``` bash
+$ git clone git@github.com:UBC-MDS/DSCI-532_2024_6_Green-Development-Planner.git
+```
+
+### Step 2: Create the virtual environment
+
+Create a new Conda environment using the `environment.yaml` file provided in this repository. This file contains all the necessary dependencies, including both Python and Poetry versions.
+
+To create the environment, open your terminal and navigate to the directory where the `environment.yaml` file is located. Then, run the following command:
+
+``` bash
+$ conda env create -f environment.yaml
+$ conda activate green-development-planner
+```
+
+### Step 3: Configure the Application for Development
+
+For development purpose, set `debug=True` in file `src/app.py`.
+
+``` bash
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+### Step 4: Run the dashboard
+
+Navigate to the project root directory and use the following command.
+
+``` bash
+$ python ./src/app.py
+```
+
 ## Contributing
 
-Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING.md). Please note that this project is released with a [Code of Conduct](CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Contributions are welcome! Check out the [contributing guidelines](CONTRIBUTING.md). Please note that this project is released with a [Code of Conduct](CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 ## Contributors
 
@@ -39,4 +77,4 @@ Interested in contributing? Check out the [contributing guidelines](CONTRIBUTING
 
 ## License
 
-This Green Development Planner dashboard was created by Ben Chen, Hayley Han, Ian MacCarthy, and Joey Wu. It is licensed under the terms of the [MIT license](LICENSE).
+This Green Development Planner dashboard was created by Ben Chen, Yi Han, Ian MacCarthy, and Joey Wu. It is licensed under the terms of the [MIT license](LICENSE).
