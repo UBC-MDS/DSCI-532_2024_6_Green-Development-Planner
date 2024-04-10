@@ -5,39 +5,12 @@ import altair as alt
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
+from data.data import raw_data, processed_data, world, gdf, metrics
 
-raw_data = pd.read_csv("data/raw/global_data_sustainable_energy.csv")
-processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
-
-world = gpd.read_file("data/preprocessed/world.shp")
-world.crs = 'EPSG:4326'
-
-gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
-gdf.crs = 'EPSG:4326'
-
-rename_dict = {
-    'Renewable': 'Renewable energy share in the total final energy consumption (%)',
-    'Access to': 'Access to electricity (% of population)',
-    'Financial': 'Financial flows to developing countries (US $)',
-    'Electricit': 'Electricity from nuclear (TWh)',
-    'Electric_1': 'Electricity from renewables (TWh)',
-    'Electric_2': 'Electricity from fossil fuels (TWh)',
-    'gdp_per_ca': 'gdp_per_capita_y'
-}
-gdf = gdf.rename(columns=rename_dict)
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
-
-metrics = [
-    'Renewable energy share in the total final energy consumption (%)',
-    'Access to electricity (% of population)',
-    'Financial flows to developing countries (US $)',
-    'Electricity from nuclear (TWh)',
-    'Electricity from renewables (TWh)',
-    'Electricity from fossil fuels (TWh)',
-]
 
 # Layout
 left_layout = dbc.Container([
