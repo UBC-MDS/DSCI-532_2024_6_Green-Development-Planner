@@ -81,7 +81,10 @@ right_layout = dbc.Container([
     html.Br(),
     dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
     html.Br(),
-    dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
+    dbc.Row([
+        dbc.Col(dbc.Card(id='gdp-card'), width=6),
+        dbc.Col(dbc.Card(id='population-card'), width=6)
+    ])
 ])
 
 
@@ -254,27 +257,50 @@ def update_bar_charts(selected_entity):
 
     return fig_electricity, fig_financial_flows
 
+# @callback(
+#     Output('line-chart-gdp-per-capita', 'spec'),
+#     Input('entity-dropdown', 'value')
+# )
+# def update_pie_chart(selected_entity):
+
+#     raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
+#     filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
+
+#     gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
+#         x=alt.X('Year:T', title='Year'),  # Assuming 'Year' column is datetime, adjust if necessary
+#         y=alt.Y('gdp_per_capita', title='GDP per Capita'),
+#         tooltip=['Year:T', 'gdp_per_capita']
+#     ).properties(
+#         title=f"GDP per Capita over Time for {selected_entity}",
+#         width=550, height=200
+#     ).to_dict()
+
+#     return gdp_per_capita_line_plot
+
 @callback(
-    Output('line-chart-gdp-per-capita', 'spec'),
+    [Output('gdp-card', 'children'),
+     Output('population-card', 'children')],
     Input('entity-dropdown', 'value')
 )
-def update_pie_chart(selected_entity):
+def update_card(selected_entity):
 
-    raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
-    filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
+    filtered_entity_data = processed_data[processed_data['Entity'] == selected_entity]
+    gdp_per_capita = filtered_entity_data['gdp_per_capita']   
+    population = filtered_entity_data['gdp_per_capita']
 
-    gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
-        x=alt.X('Year:T', title='Year'),  # Assuming 'Year' column is datetime, adjust if necessary
-        y=alt.Y('gdp_per_capita', title='GDP per Capita'),
-        tooltip=['Year:T', 'gdp_per_capita']
-    ).properties(
-        title=f"GDP per Capita over Time for {selected_entity}",
-        width=550, height=200
-    ).to_dict()
+    gdp_card = [
+        dbc.CardHeader(f'GDP per Capita'),
+        dbc.CardBody(gdp_per_capita)
+    ]
 
-    return gdp_per_capita_line_plot
+    population_card = [
+        dbc.CardHeader('Population'),
+        dbc.CardBody(population)
+    ]
+
+    return gdp_card, population_card
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
 
