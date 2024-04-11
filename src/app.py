@@ -257,26 +257,6 @@ def update_bar_charts(selected_entity):
 
     return fig_electricity, fig_financial_flows
 
-# @callback(
-#     Output('line-chart-gdp-per-capita', 'spec'),
-#     Input('entity-dropdown', 'value')
-# )
-# def update_pie_chart(selected_entity):
-
-#     raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
-#     filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
-
-#     gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
-#         x=alt.X('Year:T', title='Year'),  # Assuming 'Year' column is datetime, adjust if necessary
-#         y=alt.Y('gdp_per_capita', title='GDP per Capita'),
-#         tooltip=['Year:T', 'gdp_per_capita']
-#     ).properties(
-#         title=f"GDP per Capita over Time for {selected_entity}",
-#         width=550, height=200
-#     ).to_dict()
-
-#     return gdp_per_capita_line_plot
-
 @callback(
     [Output('gdp-card', 'children'),
      Output('population-card', 'children')],
