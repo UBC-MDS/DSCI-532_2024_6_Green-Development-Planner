@@ -69,7 +69,6 @@ card_style = {
     'border': 'none',
     'boxShadow': 'none',
     'outline': 'none'
-
 }
 
 # Define the layout
@@ -148,12 +147,16 @@ def create_chart(variable, year_slider):
     ).project(
         'equirectangular'
     ).encode(
-        color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
+        color=alt.Color(variable, 
+                        legend=alt.Legend(orient='none', legendX=10, legendY=460, direction='horizontal',
+                                          title=variable, gradientLength=300, 
+                                          labelLimit=500, titleLimit=500)),
+        # color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
         tooltip=['Entity', variable],
-        stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')),  # If hovering, stroke white, otherwise black
+        stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')), 
         order=alt.condition(hover, alt.value(1), alt.value(0))
     ).add_params(
-    hover
+        hover
     )
 
     background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
@@ -161,16 +164,6 @@ def create_chart(variable, year_slider):
     return(
         (background_map + non_missing_data).properties(height=600).to_dict()
     )
-
-@callback(
-    Output('chart-selection', 'children'),
-    Input('map', 'signalData'),
-)
-def print_selection(clicked_region):
-    print(clicked_region)  # So that you can see the full dictionary
-    if clicked_region and 'name' in clicked_region['select_region']:
-        return f'{clicked_region["select_region"]["name"]}'
-
 
 # Callback to update the pie chart based on selected entity
 @callback(
