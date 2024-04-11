@@ -60,7 +60,7 @@ left_layout = dbc.Container([
         updatemode="drag",
         tooltip={'placement': 'bottom', 'always_visible': True}
     ),
-    dvc.Vega(id='world', spec={}),
+    dvc.Vega(id='world', opt={'actions': False}, spec={}),
 ])
 
 card_style = {
@@ -81,13 +81,13 @@ right_layout = dbc.Container([
     ),
     html.Br(),
     dbc.Row([
-        dbc.Col(dvc.Vega(id='pie-chart'), width=6),
-        dbc.Col(dvc.Vega(id='electricity-production'), width=6),
+        dbc.Col(dvc.Vega(id='pie-chart', opt={'actions': False}), width=6),
+        dbc.Col(dvc.Vega(id='electricity-production', opt={'actions': False}), width=6),
     ]),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-electricity', style={'width': '100%'})),
+    dbc.Col(dvc.Vega(id='bar-chart-electricity', opt={'actions': False}, style={'width': '100%'})),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
+    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', opt={'actions': False}, style={'width': '100%'})),
     html.Br(),
     dbc.Row([
         dbc.Col(dbc.Card(id='gdp-card', style=card_style), width=6,),
