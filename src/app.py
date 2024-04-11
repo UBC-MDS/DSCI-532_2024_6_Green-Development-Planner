@@ -63,6 +63,15 @@ left_layout = dbc.Container([
     dvc.Vega(id='world', spec={}),
 ])
 
+card_style = {
+    'borderRadius': '1rem',  # Rounded corners for the whole card
+    'overflow': 'hidden',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+
+}
+
 # Define the layout
 right_layout = dbc.Container([
     dcc.Markdown('**Select a Country:**'),
@@ -82,8 +91,8 @@ right_layout = dbc.Container([
     dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
     html.Br(),
     dbc.Row([
-        dbc.Col(dbc.Card(id='gdp-card'), width=6),
-        dbc.Col(dbc.Card(id='population-card'), width=6)
+        dbc.Col(dbc.Card(id='gdp-card', style=card_style), width=6,),
+        dbc.Col(dbc.Card(id='population-card', style=card_style), width=6)
     ])
 ])
 
@@ -257,6 +266,32 @@ def update_bar_charts(selected_entity):
 
     return fig_electricity, fig_financial_flows
 
+header_style = {
+    'fontWeight': 'bold',
+    'color': '#245724',
+    'backgroundColor': '#e6f5e6',
+    'fontSize': '20px',
+    'fontFamily': 'Helvetica',
+    'padding': '15px',
+    'textAlign': 'center',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
+
+body_style = {
+    # 'fontWeight': 'bold',
+    'color': '#f2fff2',
+    'backgroundColor': '#245724',
+    'fontSize': '22px',
+    'fontFamily': 'Helvetica',
+    'padding': '15px',
+    'textAlign': 'center',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
+
 @callback(
     [Output('gdp-card', 'children'),
      Output('population-card', 'children')],
@@ -265,17 +300,17 @@ def update_bar_charts(selected_entity):
 def update_card(selected_entity):
 
     filtered_entity_data = processed_data[processed_data['Entity'] == selected_entity]
-    gdp_per_capita = filtered_entity_data['gdp_per_capita']   
-    population = filtered_entity_data['gdp_per_capita']
+    gdp_per_capita = filtered_entity_data['gdp_per_capita'].iloc[0]   
+    population = gdf[gdf["Entity"] == selected_entity]["pop_est"].iloc[-1]
 
     gdp_card = [
-        dbc.CardHeader(f'GDP per Capita'),
-        dbc.CardBody(gdp_per_capita)
+        dbc.CardHeader(f'GDP per Capita (USD)', style=header_style),
+        dbc.CardBody(f"{gdp_per_capita: ,.2f}", style=body_style)
     ]
 
     population_card = [
-        dbc.CardHeader('Population'),
-        dbc.CardBody(population)
+        dbc.CardHeader('Population', style=header_style),
+        dbc.CardBody(f"{population: ,.0f}", style=body_style)
     ]
 
     return gdp_card, population_card
