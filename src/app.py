@@ -137,6 +137,7 @@ app.layout = dbc.Container([
 def create_chart(variable, year_slider):
 
     gdf_filtered = gdf[gdf['Year'] == year_slider]
+
     # hover effect
     hover = alt.selection_point(
         fields=['Entity'], on='pointerover', empty=False
@@ -144,6 +145,8 @@ def create_chart(variable, year_slider):
     non_missing_data = alt.Chart(gdf_filtered, width=600, height=800).mark_geoshape(
         stroke='#666666',
         strokeWidth=1
+    ).project(
+        'equirectangular'
     ).encode(
         color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
         tooltip=['Entity', variable],
@@ -155,13 +158,19 @@ def create_chart(variable, year_slider):
 
     background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
 
-    # final_chart = alt.layer(background_map, hover_effect).properties(
-    #     height=600
-    # )
-
     return(
         (background_map + non_missing_data).properties(height=600).to_dict()
     )
+
+@callback(
+    Output('chart-selection', 'children'),
+    Input('map', 'signalData'),
+)
+def print_selection(clicked_region):
+    print(clicked_region)  # So that you can see the full dictionary
+    if clicked_region and 'name' in clicked_region['select_region']:
+        return f'{clicked_region["select_region"]["name"]}'
+
 
 # Callback to update the pie chart based on selected entity
 @callback(
