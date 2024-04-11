@@ -171,6 +171,7 @@ def create_chart(variable, year_slider):
         (background_map + non_missing_data).properties(height=500).to_dict()
     )
 
+# Callback to update the dropdown box based on the click on the map
 @app.callback(
     Output('entity-dropdown', 'value'),
     [Input('world', 'signalData')] 
