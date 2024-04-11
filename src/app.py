@@ -162,7 +162,7 @@ def create_chart(variable, year_slider):
     background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
 
     return(
-        (background_map + non_missing_data).properties(height=600).to_dict()
+        (background_map + non_missing_data).properties(height=500).to_dict()
     )
 
 # Callback to update the pie chart based on selected entity
