@@ -137,11 +137,27 @@ app.layout = dbc.Container([
 def create_chart(variable, year_slider):
 
     gdf_filtered = gdf[gdf['Year'] == year_slider]
-    non_missing_data = alt.Chart(gdf_filtered, width=600, height=800).mark_geoshape().encode(
+    # hover effect
+    hover = alt.selection_point(
+        fields=['Entity'], on='pointerover', empty=False
+        )
+    non_missing_data = alt.Chart(gdf_filtered, width=600, height=800).mark_geoshape(
+        stroke='#666666',
+        strokeWidth=1
+    ).encode(
         color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
-        tooltip=['Entity', variable]
+        tooltip=['Entity', variable],
+        stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')),  # If hovering, stroke white, otherwise black
+        order=alt.condition(hover, alt.value(1), alt.value(0))
+    ).add_params(
+    hover
     )
+
     background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
+
+    # final_chart = alt.layer(background_map, hover_effect).properties(
+    #     height=600
+    # )
 
     return(
         (background_map + non_missing_data).properties(height=600).to_dict()
