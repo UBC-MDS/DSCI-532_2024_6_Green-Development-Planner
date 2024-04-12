@@ -110,7 +110,11 @@ description = html.P([
 
 
 app.layout = dbc.Container([
-    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
+    dbc.CardBody('Green Development Planner', style={'font-family': 'Helvetica',
+                                                    'font-size': '3rem',
+                                                    'color': '#f2fff2',
+                                                    'background-color':'#245724',
+                                                    'text-align': 'center'}),
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
@@ -199,12 +203,15 @@ def update_pie_chart(selected_entity):
         'value': [renewable_energy_share, 100 - renewable_energy_share]
     })
 
+    domain = ['Renewables', "Other"]
+    range_ = ['#4CBB17', '#C19A6B']
+
     pie_chart = alt.Chart(pie_data).mark_arc(innerRadius=50).encode(
         theta='value',
-        color=alt.Color('category', legend=alt.Legend(title='Category')),
+        color=alt.Color('category', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
         tooltip=['category', 'value']
     ).properties(
-        title=f"Renewable Energy Share in {selected_entity}",
+        title=f"Energy Consumption in {selected_entity}",
         width=150, height=150
     ).interactive().to_dict()
     
@@ -233,9 +240,13 @@ def update_arc_chart(selected_entity):
         #'Value' : [4,50,6]
     })
     # Construct the arc chart figure using altair
+
+    domain = ['Renewables', "Fossil Fuels", "Nuclear"]
+    range_ = ['#4CBB17', '#C19A6B', '#4682B4']
+
     fig_electricity_production = alt.Chart(source).mark_arc(innerRadius=50).encode(
         theta = 'Value',
-        color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')),
+        color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
         tooltip=['Energy Source', 'Value']
     ).properties(
         title = f'Electricity Generation in {selected_entity}',
@@ -262,7 +273,7 @@ def update_bar_charts(selected_entity):
     avg_financial_flows = processed_data['Financial flows to developing countries (US $)'].mean()
 
     bar_data_electricity = pd.DataFrame({
-        'Entity': ['Selected Entity', 'Average'],
+        'Entity': [f'{selected_entity}', 'Average'],
         'Access to electricity (% of population)': [
             filtered_entity_data['Access to electricity (% of population)'].values[0],
             avg_access_to_electricity
@@ -270,31 +281,38 @@ def update_bar_charts(selected_entity):
     })
 
     bar_data_financial_flows = pd.DataFrame({
-        'Entity': ['Selected Entity', 'Average'],
+        'Entity': [f'{selected_entity}', 'Average'],
         'Financial flows to developing countries (US $)': [
             filtered_entity_data['Financial flows to developing countries (US $)'].values[0],
             avg_financial_flows
         ]
     })
     
+
+    domain = [f'{selected_entity}','Average']
+    range_ = ['#023020','#AFE1AF']
+
     fig_electricity = alt.Chart(bar_data_electricity).mark_bar().encode(
         x=alt.X('Access to electricity (% of population)', title='Access to Electricity (%)'),  # Change the title if needed
-        y=alt.Y('Entity', title='Entity'),
-        color=alt.Color('Entity', legend=None),  # Move legend to top-left
-        tooltip=['Entity', 'Access to electricity (% of population)'],
+        y=alt.Y('Entity', title='Country'),
+        color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Move legend to top-left
+        tooltip=["Entity", 'Access to electricity (% of population)'],
     ).properties(
         title=f"Access to Electricity - {selected_entity} vs Average",
         width=500
     ).to_dict()
     
 
+    domain = [f'{selected_entity}','Average']
+    range_ = ['#023020','#AFE1AF']
+
     fig_financial_flows = alt.Chart(bar_data_financial_flows).mark_bar().encode(
-        x=alt.X('Financial flows to developing countries (US $)', title='Financial Flows (US $)'),
+        x=alt.X('Financial flows to developing countries (US $)', title='Foreign Aid (US $)'),
         y=alt.Y('Entity', title='Country'),
-        color=alt.Color('Entity', legend=None),  # Remove legend for color encoding
+        color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Remove legend for color encoding
         tooltip=['Entity', 'Financial flows to developing countries (US $)'],
     ).properties(
-        title=f"Financial Flows - {selected_entity} vs Average",
+        title=f"Recieved Foreign Aid - {selected_entity} vs Average",
         width=500
     ).to_dict()
 
