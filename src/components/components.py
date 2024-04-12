@@ -44,7 +44,7 @@ financial_flow_bar_chart = dvc.Vega(id='bar-chart-financial-flows', style={'widt
 
 gdp_per_capita_line_chart = dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})
 
-footer = description = html.P([
+footer = html.P([
     "This dashboard offers a high-level overview of renewable energy metrics \
     across the globe and identifies developing countries with high potential \
     for green development.",

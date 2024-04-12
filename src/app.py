@@ -5,82 +5,66 @@ import altair as alt
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
-from data.data import raw_data, processed_data, world, gdf, metrics
 
+from data.data import raw_data, processed_data, world, gdf
+from components.components import (
+    metric_dropdown_label,
+    metric_dropdown,
+    year_slider_label,
+    year_slider,
+    world_map,
+    country_dropdown_label,
+    country_dropdown,
+    energy_consumption_pie_chart,
+    electricity_generation_pie_chart,
+    electricity_access_bar_chart,
+    financial_flow_bar_chart,
+    gdp_per_capita_line_chart,
+    footer,
+    title,
+)
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-# Layout
+# App layout of left side
 left_layout = dbc.Container([
-    dcc.Markdown('**Select a Metric:**'),
-    dcc.Dropdown(
-        id='variable', 
-        options=metrics, 
-        value='Access to electricity (% of population)',
-        placeholder="Select a metric",
-        ),
+    metric_dropdown_label,
+    metric_dropdown,
     html.Br(),
-    dcc.Markdown('**Select a Year:**'),
-    dcc.Slider(
-        id='year_slider',
-        min=gdf['Year'].min(),
-        max=gdf['Year'].max(),
-        value=gdf['Year'].max(),
-        marks={str(year): str(year) for year in gdf['Year'].unique() if year % 5 == 0},
-        step=20,
-        updatemode="drag",
-        tooltip={'placement': 'bottom', 'always_visible': True}
-    ),
-    dvc.Vega(id='world', spec={}),
+    year_slider_label,
+    year_slider,
+    world_map,
 ])
 
-# Define the layout
+# App layout of right side
 right_layout = dbc.Container([
-    dcc.Markdown('**Select a Country:**'),
-    dcc.Dropdown(
-        id='entity-dropdown',
-        options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
-        value=processed_data['Entity'].unique()[0],  # default value
-    ),
+    country_dropdown_label,
+    country_dropdown,
     html.Br(),
     dbc.Row([
-        dbc.Col(dvc.Vega(id='pie-chart'), width=6),
-        dbc.Col(dvc.Vega(id='electricity-production'), width=6),
+        dbc.Col(energy_consumption_pie_chart, width=6),
+        dbc.Col(electricity_generation_pie_chart, width=6),
     ]),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-electricity', style={'width': '100%'})),
+    dbc.Col(electricity_access_bar_chart),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
+    dbc.Col(financial_flow_bar_chart),
     html.Br(),
-    dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
+    dbc.Col(gdp_per_capita_line_chart),
 ])
 
-
-description = html.P([
-    "This dashboard offers a high-level overview of renewable energy metrics \
-    across the globe and identifies developing countries with high potential \
-    for green development.",
-    html.Br(),  # Line break
-    "Author: Ben Chen, Hayley Han, Ian MacCarthy, Joey Wu",
-    html.Br(),  # Line break
-    "Latest update/deployment: April 6, 2024",
-    html.Br(),  # Line break
-    html.A('GitHub URL', href='https://github.com/UBC-MDS/DSCI-532_2024_6_Green-Development-Planner', target='_blank')
-])
-
-
+# App layout combining left and right side
 app.layout = dbc.Container([
-    dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'}),
+    title,
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
     ]),
-
     dbc.Row([
         dbc.Col(
-            description,
+            footer,
             width=12,
             style={'font-size': '12px', 'color': '#333', 'margin-top': '20px', 'margin-bottom': '0', 'text-align': 'center', 'font-weight': 'bold'}
         )
