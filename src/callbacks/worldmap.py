@@ -1,4 +1,4 @@
-from dash import callback, Output, Input
+from dash import callback, Output, Input, no_update
 import altair as alt
 
 from data.data import processed_data, world, gdf
@@ -64,6 +64,12 @@ def create_chart(variable, year_slider):
 def update_dropdown(clicked_region):
 
     if clicked_region and 'Entity' in clicked_region['select_region']:
-        return clicked_region['select_region']['Entity'][0]
+        entity = clicked_region['select_region']['Entity']
+
+        # Check if the list is not empty
+        if entity:  
+            return entity[0]
+        
+        return no_update
     
     return processed_data['Entity'].unique()[0]
