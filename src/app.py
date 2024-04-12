@@ -19,7 +19,8 @@ from components.components import (
     electricity_generation_pie_chart,
     electricity_access_bar_chart,
     financial_flow_bar_chart,
-    gdp_per_capita_line_chart,
+    gdp_per_capita_card,
+    population_card,
     footer,
     title,
 )
@@ -33,27 +34,10 @@ left_layout = dbc.Container([
     metric_dropdown_label,
     metric_dropdown,
     html.Br(),
-    dcc.Markdown('**Select a Year:**'),
-    dcc.Slider(
-        id='year_slider',
-        min=gdf['Year'].min(),
-        max=gdf['Year'].max(),
-        value=gdf['Year'].max(),
-        marks={str(year): str(year) for year in gdf['Year'].unique() if year % 5 == 0},
-        step=20,
-        updatemode="drag",
-        tooltip={'placement': 'bottom', 'always_visible': True}
-    ),
-    dvc.Vega(id='world', opt={'actions': False}, spec={}, signalsToObserve=['select_region']),
+    year_slider_label,
+    year_slider,
+    world_map,
 ])
-
-card_style = {
-    'borderRadius': '1rem',  # Rounded corners for the whole card
-    'overflow': 'hidden',
-    'border': 'none',
-    'boxShadow': 'none',
-    'outline': 'none'
-}
 
 # Define the layout
 right_layout = dbc.Container([
@@ -61,27 +45,23 @@ right_layout = dbc.Container([
     country_dropdown,
     html.Br(),
     dbc.Row([
-        dbc.Col(dvc.Vega(id='pie-chart', opt={'actions': False}), width=6),
-        dbc.Col(dvc.Vega(id='electricity-production', opt={'actions': False}), width=6),
+        dbc.Col(energy_consumption_pie_chart, width=6),
+        dbc.Col(electricity_generation_pie_chart, width=6),
     ]),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-electricity', opt={'actions': False}, style={'width': '100%'})),
+    dbc.Col(electricity_access_bar_chart),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', opt={'actions': False}, style={'width': '100%'})),
+    dbc.Col(financial_flow_bar_chart),
     html.Br(),
     dbc.Row([
-        dbc.Col(dbc.Card(id='gdp-card', style=card_style), width=6,),
-        dbc.Col(dbc.Card(id='population-card', style=card_style), width=6)
+        dbc.Col(gdp_per_capita_card, width=6,),
+        dbc.Col(population_card, width=6)
     ])
 ])
 
 # App layout combining left and right side
 app.layout = dbc.Container([
-    dbc.CardBody('Green Development Planner', style={'font-family': 'Helvetica',
-                                                    'font-size': '3rem',
-                                                    'color': '#f2fff2',
-                                                    'background-color':'#245724',
-                                                    'text-align': 'center'}),
+    title,
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),

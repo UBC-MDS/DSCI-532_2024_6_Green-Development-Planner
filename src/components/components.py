@@ -2,7 +2,7 @@ from dash import dcc, html
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 
-from src.data.data import metrics, gdf, processed_data
+from data.data import metrics, gdf, processed_data
 
 metric_dropdown_label = dcc.Markdown('**Select a Metric:**')
 
@@ -26,7 +26,7 @@ year_slider = dcc.Slider(
     tooltip={'placement': 'bottom', 'always_visible': True}
 )
 
-world_map = dvc.Vega(id='world', spec={})
+world_map = dvc.Vega(id='world', opt={'actions': False}, spec={}, signalsToObserve=['select_region'])
 
 country_dropdown_label = dcc.Markdown('**Select a Country:**')
 
@@ -36,13 +36,22 @@ country_dropdown = dcc.Dropdown(
     value=processed_data['Entity'].unique()[0],  # default value
 )
 
-energy_consumption_pie_chart = dvc.Vega(id='pie-chart')
-electricity_generation_pie_chart = dvc.Vega(id='electricity-production')
+energy_consumption_pie_chart = dvc.Vega(id='pie-chart', opt={'actions': False})
+electricity_generation_pie_chart = dvc.Vega(id='electricity-production', opt={'actions': False})
 
-electricity_access_bar_chart = dvc.Vega(id='bar-chart-electricity', style={'width': '100%'})
-financial_flow_bar_chart = dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})
+electricity_access_bar_chart = dvc.Vega(id='bar-chart-electricity', opt={'actions': False}, style={'width': '100%'})
+financial_flow_bar_chart = dvc.Vega(id='bar-chart-financial-flows', opt={'actions': False}, style={'width': '100%'})
 
-gdp_per_capita_line_chart = dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})
+card_style = {
+    'borderRadius': '1rem',  # Rounded corners for the whole card
+    'overflow': 'hidden',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
+
+gdp_per_capita_card = dbc.Card(id='gdp-card', style=card_style)
+population_card = dbc.Card(id='population-card', style=card_style)
 
 footer = html.P([
     "This dashboard offers a high-level overview of renewable energy metrics \
@@ -56,5 +65,13 @@ footer = html.P([
     html.A('GitHub URL', href='https://github.com/UBC-MDS/DSCI-532_2024_6_Green-Development-Planner', target='_blank')
 ])
 
-title = dbc.CardBody('Green Development Planner', style={'font-family': 'Palatino, sans-serif', 'font-size': '3rem', 'color': 'green', 'text-align': 'center'})
+title = dbc.CardBody('Green Development Planner',
+                    style={
+                        'font-family': 'Helvetica',
+                        'font-size': '3rem',
+                        'color': '#f2fff2',
+                        'background-color':'#245724',
+                        'text-align': 'center'
+                    }
+)
 
