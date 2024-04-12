@@ -178,8 +178,8 @@ def create_chart(variable, year_slider):
 )
 def update_dropdown(clicked_region):
     if clicked_region and 'Entity' in clicked_region['select_region']:
-        return str(clicked_region['select_region']['Entity'][0])
-    return app
+        return clicked_region['select_region']['Entity'][0]
+    return processed_data['Entity'].unique()[0]
 
 # Callback to update the pie chart based on selected entity
 @callback(
