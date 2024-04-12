@@ -1,14 +1,10 @@
-from dash import Dash, dcc, callback, Output, Input, html
-import dash_bootstrap_components as dbc
-import dash_vega_components as dvc
+from dash import callback, Output, Input
 import altair as alt
 import pandas as pd
-import geopandas as gpd
-import plotly.express as px
 
-from data.data import raw_data, processed_data, world, gdf
+from data.data import processed_data
 
-# Callbacks to update the bar charts based on selected entity
+# Callbacks to update the bar charts based on selected country
 @callback(
     [
         Output('bar-chart-electricity', 'spec'),
@@ -17,13 +13,14 @@ from data.data import raw_data, processed_data, world, gdf
     Input('entity-dropdown', 'value')
 )
 def update_bar_charts(selected_entity):
-    # Filter the data for the selected entity
+    
     filtered_entity_data = processed_data[processed_data['Entity'] == selected_entity]
     
-    # Calculate the average for all entities for each metric
+    # Calculate the average for each metric of the country selected
     avg_access_to_electricity = processed_data['Access to electricity (% of population)'].mean()
     avg_financial_flows = processed_data['Financial flows to developing countries (US $)'].mean()
 
+    # Construct access to electricity dataframe for plotting
     bar_data_electricity = pd.DataFrame({
         'Entity': [f'{selected_entity}', 'Average'],
         'Access to electricity (% of population)': [
@@ -32,6 +29,7 @@ def update_bar_charts(selected_entity):
         ]
     })
 
+    # Construct foreign aid dataframe for plotting
     bar_data_financial_flows = pd.DataFrame({
         'Entity': [f'{selected_entity}', 'Average'],
         'Financial flows to developing countries (US $)': [
@@ -40,11 +38,12 @@ def update_bar_charts(selected_entity):
         ]
     })
     
-
+    # Specify y-axis tick labels and colors for access to electricity bar chart
     domain = [f'{selected_entity}','Average']
     range_ = ['#023020','#AFE1AF']
 
-    fig_electricity = alt.Chart(bar_data_electricity).mark_bar().encode(
+    # Plot access to electricity bar chart
+    access_to_electricity_bar_chart = alt.Chart(bar_data_electricity).mark_bar().encode(
         x=alt.X('Access to electricity (% of population)', title='Access to Electricity (%)'),  # Change the title if needed
         y=alt.Y('Entity', title='Country'),
         color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Move legend to top-left
@@ -54,11 +53,12 @@ def update_bar_charts(selected_entity):
         width=500
     ).to_dict()
     
-
+    # Specify y-axis tick labels and colors for foreign aid bar chart
     domain = [f'{selected_entity}','Average']
     range_ = ['#023020','#AFE1AF']
 
-    fig_financial_flows = alt.Chart(bar_data_financial_flows).mark_bar().encode(
+    # Plot foreign aid bar chart
+    financial_flows_bar_chart = alt.Chart(bar_data_financial_flows).mark_bar().encode(
         x=alt.X('Financial flows to developing countries (US $)', title='Foreign Aid (US $)'),
         y=alt.Y('Entity', title='Country'),
         color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Remove legend for color encoding
@@ -68,4 +68,4 @@ def update_bar_charts(selected_entity):
         width=500
     ).to_dict()
 
-    return fig_electricity, fig_financial_flows
+    return access_to_electricity_bar_chart, financial_flows_bar_chart
