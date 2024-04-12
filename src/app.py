@@ -6,7 +6,7 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 
-import callbacks.callbacks
+from callbacks import worldmap, piecharts, barcharts, cards
 from data.data import raw_data, processed_data, world, gdf
 from components.components import (
     metric_dropdown_label,
@@ -76,9 +76,6 @@ app.layout = dbc.Container([
     ])
 
 ])
-
-
-
 
 # Run the app
 if __name__ == '__main__':
