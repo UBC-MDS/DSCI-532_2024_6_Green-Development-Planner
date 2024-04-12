@@ -1,5 +1,6 @@
 from dash import html
 
+# Dashboard footer
 footer = html.P([
     "This dashboard offers a high-level overview of renewable energy metrics \
     across the globe and identifies developing countries with high potential \

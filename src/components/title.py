@@ -1,5 +1,6 @@
 import dash_bootstrap_components as dbc
 
+# Dashboard Title
 title = dbc.CardBody('Green Development Planner',
                     style={
                         'font-family': 'Helvetica',

@@ -1,7 +1,8 @@
 import dash_bootstrap_components as dbc
 
+# Specify card styling
 card_style = {
-    'borderRadius': '1rem',  # Rounded corners for the whole card
+    'borderRadius': '1rem',
     'overflow': 'hidden',
     'border': 'none',
     'boxShadow': 'none',

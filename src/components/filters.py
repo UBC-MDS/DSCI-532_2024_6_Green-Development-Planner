@@ -1,9 +1,7 @@
-from dash import dcc, html
-import dash_bootstrap_components as dbc
-import dash_vega_components as dvc
-
+from dash import dcc
 from data.data import metrics, gdf, processed_data
 
+# Metric Dropdown
 metric_dropdown = dcc.Dropdown(
     id='variable', 
     options=metrics, 
@@ -11,6 +9,7 @@ metric_dropdown = dcc.Dropdown(
     placeholder="Select a metric",
 )
 
+# Year Slider
 year_slider = dcc.Slider(
     id='year_slider',
     min=gdf['Year'].min(),
@@ -22,6 +21,7 @@ year_slider = dcc.Slider(
     tooltip={'placement': 'bottom', 'always_visible': True}
 )
 
+# Country Dropdown
 country_dropdown = dcc.Dropdown(
     id='entity-dropdown',
     options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
