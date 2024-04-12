@@ -60,8 +60,16 @@ left_layout = dbc.Container([
         updatemode="drag",
         tooltip={'placement': 'bottom', 'always_visible': True}
     ),
-    dvc.Vega(id='world', spec={}),
+    dvc.Vega(id='world', opt={'actions': False}, spec={}, signalsToObserve=['select_region']),
 ])
+
+card_style = {
+    'borderRadius': '1rem',  # Rounded corners for the whole card
+    'overflow': 'hidden',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
 
 # Define the layout
 right_layout = dbc.Container([
@@ -73,15 +81,18 @@ right_layout = dbc.Container([
     ),
     html.Br(),
     dbc.Row([
-        dbc.Col(dvc.Vega(id='pie-chart'), width=6),
-        dbc.Col(dvc.Vega(id='electricity-production'), width=6),
+        dbc.Col(dvc.Vega(id='pie-chart', opt={'actions': False}), width=6),
+        dbc.Col(dvc.Vega(id='electricity-production', opt={'actions': False}), width=6),
     ]),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-electricity', style={'width': '100%'})),
+    dbc.Col(dvc.Vega(id='bar-chart-electricity', opt={'actions': False}, style={'width': '100%'})),
     html.Br(),
-    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', style={'width': '100%'})),
+    dbc.Col(dvc.Vega(id='bar-chart-financial-flows', opt={'actions': False}, style={'width': '100%'})),
     html.Br(),
-    dbc.Col(dvc.Vega(id='line-chart-gdp-per-capita', style={'width': '100%'})),
+    dbc.Row([
+        dbc.Col(dbc.Card(id='gdp-card', style=card_style), width=6,),
+        dbc.Col(dbc.Card(id='population-card', style=card_style), width=6)
+    ])
 ])
 
 
@@ -125,15 +136,50 @@ app.layout = dbc.Container([
 def create_chart(variable, year_slider):
 
     gdf_filtered = gdf[gdf['Year'] == year_slider]
-    non_missing_data = alt.Chart(gdf_filtered, width=600, height=800).mark_geoshape().encode(
-        color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
-        tooltip=['Entity', variable]
+
+    # hover effect
+    hover = alt.selection_point(
+        fields=['Entity'], on='pointerover', empty=False
+        )
+    # click effect
+    click = alt.selection_point(
+        fields=['Entity'], name='select_region', on='click'
     )
+
+    non_missing_data = alt.Chart(gdf_filtered, width=600, height=800).mark_geoshape(
+        stroke='#666666',
+        strokeWidth=1
+    ).project(
+        'equalEarth'
+    ).encode(
+        color=alt.Color(variable, 
+                        legend=alt.Legend(orient='none', legendX=10, legendY=460, direction='horizontal',
+                                          title=variable, gradientLength=300, 
+                                          labelLimit=500, titleLimit=500)),
+        # color=alt.Color(variable, legend=alt.Legend(orient='top-left')),
+        tooltip=['Entity', variable],
+        stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')), 
+        order=alt.condition(hover, alt.value(1), alt.value(0))
+    ).add_params(
+        hover,
+        click
+    )
+
     background_map = alt.Chart(world).mark_geoshape(color="lightgrey")
 
     return(
-        (background_map + non_missing_data).properties(height=600).to_dict()
+        (background_map + non_missing_data).properties(height=500).to_dict()
     )
+
+# Callback to update the dropdown box based on the click on the map
+@app.callback(
+    Output('entity-dropdown', 'value'),
+    [Input('world', 'signalData')] 
+)
+def update_dropdown(clicked_region):
+    if clicked_region and 'Entity' in clicked_region['select_region']:
+        return clicked_region['select_region']['Entity'][0]
+    return processed_data['Entity'].unique()[0]
 
 # Callback to update the pie chart based on selected entity
 @callback(
@@ -254,27 +300,56 @@ def update_bar_charts(selected_entity):
 
     return fig_electricity, fig_financial_flows
 
+header_style = {
+    'fontWeight': 'bold',
+    'color': '#245724',
+    'backgroundColor': '#e6f5e6',
+    'fontSize': '20px',
+    'fontFamily': 'Helvetica',
+    'padding': '15px',
+    'textAlign': 'center',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
+
+body_style = {
+    # 'fontWeight': 'bold',
+    'color': '#f2fff2',
+    'backgroundColor': '#245724',
+    'fontSize': '22px',
+    'fontFamily': 'Helvetica',
+    'padding': '15px',
+    'textAlign': 'center',
+    'border': 'none',
+    'boxShadow': 'none',
+    'outline': 'none'
+}
+
 @callback(
-    Output('line-chart-gdp-per-capita', 'spec'),
+    [Output('gdp-card', 'children'),
+     Output('population-card', 'children')],
     Input('entity-dropdown', 'value')
 )
-def update_pie_chart(selected_entity):
+def update_card(selected_entity):
 
-    raw_data['Year'] = pd.to_datetime(raw_data['Year'], format='%Y')
-    filtered_entity_data = raw_data[raw_data['Entity'] == selected_entity]
+    filtered_entity_data = processed_data[processed_data['Entity'] == selected_entity]
+    gdp_per_capita = filtered_entity_data['gdp_per_capita'].iloc[0]   
+    population = gdf[gdf["Entity"] == selected_entity]["pop_est"].iloc[-1]
 
-    gdp_per_capita_line_plot = alt.Chart(filtered_entity_data).mark_line().encode(
-        x=alt.X('Year:T', title='Year'),  # Assuming 'Year' column is datetime, adjust if necessary
-        y=alt.Y('gdp_per_capita', title='GDP per Capita'),
-        tooltip=['Year:T', 'gdp_per_capita']
-    ).properties(
-        title=f"GDP per Capita over Time for {selected_entity}",
-        width=550, height=200
-    ).to_dict()
+    gdp_card = [
+        dbc.CardHeader(f'GDP per Capita (USD)', style=header_style),
+        dbc.CardBody(f"{gdp_per_capita: ,.2f}", style=body_style)
+    ]
 
-    return gdp_per_capita_line_plot
+    population_card = [
+        dbc.CardHeader('Population', style=header_style),
+        dbc.CardBody(f"{population: ,.0f}", style=body_style)
+    ]
+
+    return gdp_card, population_card
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
 
