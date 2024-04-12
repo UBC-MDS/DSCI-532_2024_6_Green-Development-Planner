@@ -11,4 +11,4 @@ footer = html.P([
     "Latest update/deployment: April 6, 2024",
     html.Br(),  # Line break
     html.A('GitHub URL', href='https://github.com/UBC-MDS/DSCI-532_2024_6_Green-Development-Planner', target='_blank')
-])
+], className="footer")

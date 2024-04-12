@@ -12,7 +12,7 @@ from components.charts import world_map, energy_consumption_pie_chart, electrici
 from components.cards import gdp_per_capita_card, population_card
 
 # Initialize the app
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, 'src/assets/styles.css'])
 server = app.server
 
 # App layout of left side
@@ -40,8 +40,8 @@ right_layout = dbc.Container([
     dbc.Col(financial_flow_bar_chart),
     html.Br(),
     dbc.Row([
-        dbc.Col(gdp_per_capita_card, width=6,),
-        dbc.Col(population_card, width=6)
+        dbc.Col(gdp_per_capita_card),
+        dbc.Col(population_card)
     ])
 ])
 
@@ -49,17 +49,10 @@ right_layout = dbc.Container([
 app.layout = dbc.Container([
     title,
     dbc.Row([
-        dbc.Col(left_layout, style={'width': '50%'}),
-        dbc.Col(right_layout, style={'width': '50%'}),
+        dbc.Col(left_layout),
+        dbc.Col(right_layout),
     ]),
-    dbc.Row([
-        dbc.Col(
-            footer,
-            width=12,
-            style={'font-size': '12px', 'color': '#333', 'margin-top': '20px', 'margin-bottom': '0', 'text-align': 'center', 'font-weight': 'bold'}
-        )
-    ])
-
+    dbc.Col(footer, width=12)
 ])
 
 # Run the app
