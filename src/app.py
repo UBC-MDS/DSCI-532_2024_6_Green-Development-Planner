@@ -8,22 +8,37 @@ import plotly.express as px
 
 from callbacks import worldmap, piecharts, barcharts, cards
 from data.data import raw_data, processed_data, world, gdf
-from components.components import (
-    metric_dropdown_label,
+from components.title import (
+    title
+)
+from components.footer import (
+    footer,
+)
+from components.filters import (
     metric_dropdown,
-    year_slider_label,
     year_slider,
+    country_dropdown
+)
+from components.markdowns import (
+    metric_dropdown_label,
+    year_slider_label,
+    country_dropdown_label
+)
+from components.filters import (
+    metric_dropdown,
+    year_slider,
+    country_dropdown
+)
+from components.charts import (
     world_map,
-    country_dropdown_label,
-    country_dropdown,
     energy_consumption_pie_chart,
     electricity_generation_pie_chart,
     electricity_access_bar_chart,
     financial_flow_bar_chart,
+)
+from components.cards import (
     gdp_per_capita_card,
     population_card,
-    footer,
-    title,
 )
 
 # Initialize the app
