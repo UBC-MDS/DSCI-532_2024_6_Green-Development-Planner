@@ -33,14 +33,6 @@ left_layout = dbc.Container([
     metric_dropdown_label,
     metric_dropdown,
     html.Br(),
-<<<<<<< HEAD
-    year_slider_label,
-    year_slider,
-    world_map,
-])
-
-# App layout of right side
-=======
     dcc.Markdown('**Select a Year:**'),
     dcc.Slider(
         id='year_slider',
@@ -64,23 +56,11 @@ card_style = {
 }
 
 # Define the layout
->>>>>>> main
 right_layout = dbc.Container([
     country_dropdown_label,
     country_dropdown,
     html.Br(),
     dbc.Row([
-<<<<<<< HEAD
-        dbc.Col(energy_consumption_pie_chart, width=6),
-        dbc.Col(electricity_generation_pie_chart, width=6),
-    ]),
-    html.Br(),
-    dbc.Col(electricity_access_bar_chart),
-    html.Br(),
-    dbc.Col(financial_flow_bar_chart),
-    html.Br(),
-    dbc.Col(gdp_per_capita_line_chart),
-=======
         dbc.Col(dvc.Vega(id='pie-chart', opt={'actions': False}), width=6),
         dbc.Col(dvc.Vega(id='electricity-production', opt={'actions': False}), width=6),
     ]),
@@ -93,20 +73,15 @@ right_layout = dbc.Container([
         dbc.Col(dbc.Card(id='gdp-card', style=card_style), width=6,),
         dbc.Col(dbc.Card(id='population-card', style=card_style), width=6)
     ])
->>>>>>> main
 ])
 
 # App layout combining left and right side
 app.layout = dbc.Container([
-<<<<<<< HEAD
-    title,
-=======
     dbc.CardBody('Green Development Planner', style={'font-family': 'Helvetica',
                                                     'font-size': '3rem',
                                                     'color': '#f2fff2',
                                                     'background-color':'#245724',
                                                     'text-align': 'center'}),
->>>>>>> main
     dbc.Row([
         dbc.Col(left_layout, style={'width': '50%'}),
         dbc.Col(right_layout, style={'width': '50%'}),
