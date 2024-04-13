@@ -1,15 +1,15 @@
 from dash import Dash, html
 import dash_bootstrap_components as dbc
 
-from src.callbacks import worldmap, piecharts, barcharts, cards
+from callbacks import worldmap, piecharts, barcharts, cards
 
-from src.components.title import title
-from src.components.footer import footer
-from src.components.filters import metric_dropdown, year_slider, country_dropdown
-from src.components.markdowns import metric_dropdown_label, year_slider_label, country_dropdown_label
-from src.components.filters import metric_dropdown, year_slider, country_dropdown
-from src.components.charts import world_map, energy_consumption_pie_chart, electricity_generation_pie_chart, electricity_access_bar_chart, financial_flow_bar_chart
-from src.components.cards import gdp_per_capita_card, population_card
+from components.title import title
+from components.footer import footer
+from components.filters import metric_dropdown, year_slider, country_dropdown
+from components.markdowns import metric_dropdown_label, year_slider_label, country_dropdown_label
+from components.filters import metric_dropdown, year_slider, country_dropdown
+from components.charts import world_map, energy_consumption_pie_chart, electricity_generation_pie_chart, electricity_access_bar_chart, financial_flow_bar_chart
+from components.cards import gdp_per_capita_card, population_card
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, 'src/assets/styles.css'])
