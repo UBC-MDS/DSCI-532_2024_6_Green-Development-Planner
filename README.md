@@ -79,6 +79,8 @@ Then uncomment the section under `# For development on local machine`.
 # gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
 ```
 
+Note: Before deployment on render.com, remember to reverse this step (comment the development section and uncomment the deployment section).
+
 ### Step 5: Run the dashboard
 
 Navigate to the project root directory and use the following command.
