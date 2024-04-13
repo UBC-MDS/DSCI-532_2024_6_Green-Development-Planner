@@ -50,9 +50,9 @@ app.layout = dbc.Container([
     dbc.Col(title, width=12),
     html.Br(),
     dbc.Row([
-        dbc.Col(left_layout, width=6),
-        dbc.Col(right_layout, width=6),
-    ]),
+        dbc.Col(left_layout, width=6, style={"border": "2px solid #B8D9B8", "padding": "20px", "border-right": "none"}),
+        dbc.Col(right_layout, width=6, style={"border": "2px solid #B8D9B8", "padding": "20px"}),
+    ], align="stretch"),
     dbc.Col(footer, width=12)
 ])
 
