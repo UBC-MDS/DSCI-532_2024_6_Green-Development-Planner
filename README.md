@@ -24,7 +24,7 @@ On the right, the dashboard provides a country-specific analysis with two pie ch
 
 ## 💻 Use the App
 
-Explore our dashboard to unlock insights into renewable energy access [here](https://dsci-532-2024-6-green-development-planner.onrender.com/). Intuitive controls and dynamic visuals guide strategic resource allocation. Dive in to make informed decisions for sustainable growth.
+Explore our dashboard to unlock insights into renewable energy access [here](https://dsci-532-2024-6-green-development-planner-v3i4.onrender.com/). Intuitive controls and dynamic visuals guide strategic resource allocation. Dive in to make informed decisions for sustainable growth.
 
 ## 🪜 How to get support?
 
@@ -78,6 +78,8 @@ Then uncomment the section under `# For development on local machine`.
 # world = gpd.read_file("data/preprocessed/world.shp")
 # gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
 ```
+
+Note: Before deployment on render.com, remember to reverse this step (comment the development section and uncomment the deployment section).
 
 ### Step 5: Run the dashboard
 
