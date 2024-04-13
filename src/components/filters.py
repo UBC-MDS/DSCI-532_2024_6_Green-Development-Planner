@@ -18,7 +18,8 @@ year_slider = dcc.Slider(
     marks={str(year): str(year) for year in gdf['Year'].unique() if year % 5 == 0},
     step=20,
     updatemode="drag",
-    tooltip={'placement': 'bottom', 'always_visible': True}
+    tooltip={'placement': 'bottom', 'always_visible': True},
+    included=False
 )
 
 # Country Dropdown
