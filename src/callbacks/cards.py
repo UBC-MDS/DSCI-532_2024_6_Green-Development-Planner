@@ -1,7 +1,7 @@
 from dash import callback, Output, Input
 import dash_bootstrap_components as dbc
 
-from data.data import processed_data, gdf
+from src.data.data import processed_data, gdf
 
 # Callback to update card values based on selected country
 @callback(

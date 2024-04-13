@@ -2,7 +2,7 @@ from dash import callback, Output, Input
 import altair as alt
 import pandas as pd
 
-from data.data import processed_data
+from src.data.data import processed_data
 
 # Callback to update the energy consumption pie chart based on selected country
 @callback(

@@ -1,7 +1,7 @@
 from dash import callback, Output, Input, no_update
 import altair as alt
 
-from data.data import processed_data, world, gdf
+from src.data.data import processed_data, world, gdf
 
 # Callback to update world map based on selection of metric and year
 @callback(

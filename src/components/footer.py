@@ -1,5 +1,5 @@
 from dash import html
-from utils.utils import REPO_URL, get_repo_last_updated_time
+from src.utils.utils import REPO_URL, get_repo_last_updated_time
 
 # Dashboard footer
 footer = html.P([
