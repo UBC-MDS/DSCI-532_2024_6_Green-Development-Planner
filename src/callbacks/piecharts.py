@@ -31,8 +31,8 @@ def update_energy_consumption_chart(selected_entity):
         color=alt.Color('category', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
         tooltip=['category', 'value']
     ).properties(
-        title=f"Energy Consumption in {selected_entity}",
-        width=150, height=150
+        title={"text": ["Energy Consumption", f"in {selected_entity}"]},
+        width='container', height=150
     ).interactive().to_dict()
     
     return energy_consumption_pie_chart
@@ -67,8 +67,8 @@ def update_electricty_generation_chart(selected_entity):
         color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
         tooltip=['Energy Source', 'Value']
     ).properties(
-        title = f'Electricity Generation in {selected_entity}',
-        width=150, height=150
+        title = {"text": ["Electricity Generation", f"in {selected_entity}"]},
+        width='container', height=150
     ).interactive().to_dict()
 
     return electricity_consumption_pie_chart

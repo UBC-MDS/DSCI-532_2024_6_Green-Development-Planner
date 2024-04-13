@@ -9,7 +9,7 @@ footer = html.P([
     html.Br(),  # Line break
     "Author: Ben Chen, Hayley Han, Ian MacCarthy, Joey Wu",
     html.Br(),  # Line break
-    "Latest update/deployment: " + get_repo_last_updated_time().strftime("%B %d, %Y")),
+    "Latest update/deployment: " + get_repo_last_updated_time().strftime("%B %d, %Y"),
     html.Br(),  # Line break
     html.A('GitHub URL', href=REPO_URL, target='_blank')
 ], className="footer")
