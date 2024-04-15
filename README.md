@@ -24,7 +24,7 @@ On the right, the dashboard provides a country-specific analysis with two pie ch
 
 ## 💻 Use the App
 
-Explore our dashboard to unlock insights into renewable energy access [here](https://dsci-532-2024-6-green-development-planner.onrender.com/). Intuitive controls and dynamic visuals guide strategic resource allocation. Dive in to make informed decisions for sustainable growth.
+Explore our dashboard to unlock insights into renewable energy access [here](https://dsci-532-2024-6-green-development-planner-v3i4.onrender.com/). Intuitive controls and dynamic visuals guide strategic resource allocation. Dive in to make informed decisions for sustainable growth.
 
 ## 🪜 How to get support?
 
@@ -60,7 +60,28 @@ if __name__ == "__main__":
     app.run_server(debug=True)
 ```
 
-### Step 4: Run the dashboard
+### Step 4: Change the path for reading data
+
+Navigate into `src/data/data.py` and comment the section under `# For deployment on render`.
+
+``` python
+raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
+processed_data = pd.read_csv("../data/preprocessed/processed_data.csv")
+world = gpd.read_file("../data/preprocessed/world.shp")
+gdf = gpd.read_file("../data/preprocessed/preprocessed_data.shp", geometry="geometry")
+```
+
+Then uncomment the section under `# For development on local machine`.
+```python
+# raw_data = pd.read_csv("data/raw/global_data_sustainable_energy.csv")
+# processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
+# world = gpd.read_file("data/preprocessed/world.shp")
+# gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
+```
+
+Note: Before deployment on render.com, remember to reverse this step (comment the development section and uncomment the deployment section).
+
+### Step 5: Run the dashboard
 
 Navigate to the project root directory and use the following command.
 

@@ -38,7 +38,7 @@ def create_chart(variable, year_slider):
                                         labelLimit=500, 
                                         titleLimit=500
                                     )
-        ),
+        ).scale(scheme="greens"),
         tooltip=['Entity', variable],
         stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')), 
         order=alt.condition(hover, alt.value(1), alt.value(0))
