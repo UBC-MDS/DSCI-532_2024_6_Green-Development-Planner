@@ -55,7 +55,7 @@ def update_bar_charts(selected_entity):
     # Plot access to electricity bar chart
     access_to_electricity_bar_chart = alt.Chart(bar_data_electricity).mark_bar().encode(
         x=alt.X('Access to electricity (% of population)', title='Access to Electricity (%)'),  # Change the title if needed
-        y=alt.Y('Entity', title='Country'),
+        y=alt.Y('Entity', title='Country').sort([f'{selected_entity}', 'Average' ]),
         color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Move legend to top-left
         tooltip=["Entity", 'Access to electricity (% of population)'],
     ).properties(
@@ -70,7 +70,7 @@ def update_bar_charts(selected_entity):
     # Plot foreign aid bar chart
     financial_flows_bar_chart = alt.Chart(bar_data_financial_flows).mark_bar().encode(
         x=alt.X('Financial flows to developing countries (US $)', title='Foreign Aid (US $)'),
-        y=alt.Y('Entity', title='Country'),
+        y=alt.Y('Entity', title='Country').sort([f'{selected_entity}', 'Average' ]),
         color=alt.Color('Entity', legend=None).scale(domain=domain, range=range_),  # Remove legend for color encoding
         tooltip=['Entity', 'Financial flows to developing countries (US $)'],
     ).properties(
