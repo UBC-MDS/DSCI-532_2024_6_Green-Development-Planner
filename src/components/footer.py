@@ -3,10 +3,6 @@ from dash import html
 
 # Dashboard footer
 footer = html.P([
-    "This dashboard offers a high-level overview of renewable energy metrics \
-    across the globe and identifies developing countries with high potential \
-    for green development.",
-    html.Br(),  # Line break
     "Author: Ben Chen, Hayley Han, Ian MacCarthy, Joey Wu",
     html.Br(),  # Line break
     "Latest update/deployment: April 18, 2024",

@@ -5,6 +5,7 @@ from callbacks import worldmap, piecharts, barcharts, cards
 
 from components.title import title
 from components.footer import footer
+from components.subtitle import subtitle
 from components.filters import metric_dropdown, year_slider, country_dropdown
 from components.markdowns import metric_dropdown_label, year_slider_label, country_dropdown_label
 from components.filters import metric_dropdown, year_slider, country_dropdown
@@ -48,6 +49,7 @@ right_layout = dbc.Container([
 # App layout combining left and right side
 app.layout = dbc.Container([
     dbc.Col(title, width=12),
+    dbc.Col(subtitle, width = 12),
     html.Br(),
     dbc.Row([
         dbc.Col(left_layout, width=6, style={"border": "2px solid #B8D9B8", "padding": "20px", "border-right": "none"}),
