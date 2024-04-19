@@ -44,7 +44,7 @@ def update_card(selected_entity):
 
     gdp_card = [
         dbc.CardHeader(f'GDP per Capita (USD)', style=header_style),
-        dbc.CardBody(f"{gdp_per_capita: ,.2f}", style=body_style)
+        dbc.CardBody(f"{gdp_per_capita: ,.0f}", style=body_style)
     ]
 
     population_card = [

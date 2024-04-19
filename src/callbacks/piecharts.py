@@ -15,7 +15,7 @@ def update_energy_consumption_chart(selected_entity):
     
     # Specify legend titles and colors
     domain = ['Renewables', "Other"]
-    range_ = ['#006400', '#DDDDDD']
+    range_ = ['#76a787', '#bec6c7']
 
     # Plot pie chart
     energy_consumption_pie_chart = alt.Chart(pie_data).mark_arc(innerRadius=50).encode(
@@ -40,7 +40,7 @@ def update_electricty_generation_chart(selected_entity):
 
     # Specify legend titles and colors
     domain = ['Renewables', "Fossil Fuels", "Nuclear"]
-    range_ = ['#4CBB17', '#C19A6B', '#4682B4']
+    range_ = ['#76a787', '#cfbeb5', '#418ab8']
 
     # Plot pie chart
     electricity_consumption_pie_chart = alt.Chart(source).mark_arc(innerRadius=50).encode(
