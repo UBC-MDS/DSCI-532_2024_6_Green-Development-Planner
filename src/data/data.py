@@ -6,12 +6,16 @@ import geopandas as gpd
 # processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
 # world = gpd.read_file("data/preprocessed/world.shp")
 # gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
+# consump_pie_data = pd.read_csv("data/preprocessed/consump_pie_data.csv")
+# elec_pie_data = pd.read_csv("data/preprocessed/elec_pie_data.csv")
 
 # For deployment on render
 raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
 processed_data = pd.read_csv("../data/preprocessed/processed_data.csv")
 world = gpd.read_file("../data/preprocessed/world.shp")
 gdf = gpd.read_file("../data/preprocessed/preprocessed_data.shp", geometry="geometry")
+consump_pie_data = pd.read_csv("../data/preprocessed/consump_pie_data.csv")
+elec_pie_data = pd.read_csv("../data/preprocessed/elec_pie_data.csv")
 
 # Specify coordinate reference system for geospatial data
 world.crs = 'EPSG:4326'
