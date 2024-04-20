@@ -1,5 +1,6 @@
 from dash import callback, Output, Input
 import dash_bootstrap_components as dbc
+import functools
 
 from data.data import gdp_per_capita, population
 
@@ -9,6 +10,7 @@ from data.data import gdp_per_capita, population
      Output('population-card', 'children')],
     Input('entity-dropdown', 'value')
 )
+@functools.lru_cache()
 def update_card(selected_entity):
 
     gdp_per_capita_value = gdp_per_capita[gdp_per_capita['Entity'] == selected_entity]['gdp_per_capita'].iloc[0] 

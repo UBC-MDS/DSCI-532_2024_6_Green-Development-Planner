@@ -1,5 +1,6 @@
 from dash import callback, Output, Input, no_update
 import altair as alt
+import functools
 
 from data.data import world, gdf
 
@@ -9,6 +10,7 @@ from data.data import world, gdf
     [Input('variable', 'value'),
      Input('year_slider', 'value')]
 )
+@functools.lru_cache()
 def create_chart(variable, year_slider):
 
     gdf_filtered = gdf[gdf['Year'] == year_slider]

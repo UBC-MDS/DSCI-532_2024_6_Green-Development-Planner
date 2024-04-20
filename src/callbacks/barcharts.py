@@ -1,6 +1,6 @@
 from dash import callback, Output, Input
 import altair as alt
-import pandas as pd
+import functools
 
 from data.data import access_to_electricity, financial_flow
 
@@ -12,6 +12,7 @@ from data.data import access_to_electricity, financial_flow
     ],
     Input('entity-dropdown', 'value')
 )
+@functools.lru_cache()
 def update_bar_charts(selected_entity):
     
     filtered_access_to_electricity = access_to_electricity[access_to_electricity['Entity'] == selected_entity]
