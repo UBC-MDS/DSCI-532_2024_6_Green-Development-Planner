@@ -1,7 +1,7 @@
 from dash import callback, Output, Input
 import dash_bootstrap_components as dbc
 
-from data.data import gdp_per_capita, gdf
+from data.data import gdp_per_capita, population
 
 # Callback to update card values based on selected country
 @callback(
@@ -12,9 +12,9 @@ from data.data import gdp_per_capita, gdf
 def update_card(selected_entity):
 
     gdp_per_capita_value = gdp_per_capita[gdp_per_capita['Entity'] == selected_entity]['gdp_per_capita'].iloc[0] 
-    population = gdf[gdf["Entity"] == selected_entity]["pop_est"].iloc[-1]
+    population_value = population[population["Entity"] == selected_entity]["pop_est"].iloc[0]
 
-    # Specify card header styling
+    # Specify card header styling 
     header_style = {
         'fontWeight': 'bold',
         'color': '#245724',
@@ -48,7 +48,7 @@ def update_card(selected_entity):
 
     population_card = [
         dbc.CardHeader('Population', style=header_style),
-        dbc.CardBody(f"{population: ,.0f}", style=body_style)
+        dbc.CardBody(f"{population_value}", style=body_style)
     ]
 
     return gdp_card, population_card
