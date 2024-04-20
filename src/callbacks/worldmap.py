@@ -1,7 +1,6 @@
 from dash import callback, Output, Input, no_update
 import altair as alt
 import functools
-
 from data.data import world, gdf
 
 # Callback to update world map based on selection of metric and year
@@ -89,4 +88,4 @@ def update_dropdown(clicked_region):
         
         return no_update
     
-    return no_update
+    return no_update if clicked_region is None else gdf['Entity'].unique()[0]
