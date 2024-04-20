@@ -6,8 +6,9 @@ raw_data = pd.read_csv("data/raw/global_data_sustainable_energy.csv")
 processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
 world = gpd.read_file("data/preprocessed/world.shp")
 gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
-consump_pie_data = pd.read_csv("data/preprocessed/consump_pie_data.csv")
-elec_pie_data = pd.read_csv("data/preprocessed/elec_pie_data.csv")
+
+consump_pie_data = pd.read_parquet("data/preprocessed/consump_pie_data.parquet")
+elec_pie_data = pd.read_parquet("data/preprocessed/elec_pie_data.parquet")
 
 # For deployment on render
 # raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
