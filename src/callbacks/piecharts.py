@@ -22,7 +22,7 @@ def update_energy_consumption_chart(selected_entity):
     energy_consumption_pie_chart = alt.Chart(pie_data).mark_arc(innerRadius=50).encode(
         theta='value',
         color=alt.Color('category', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
-        tooltip=['category', 'Percentage']
+        tooltip=[alt.Tooltip('category', title = "Source"), 'Percentage']
     ).properties(
         title={"text": ["Energy Consumption", f"in {selected_entity}"]},
         width='container', height=150
@@ -48,7 +48,7 @@ def update_electricty_generation_chart(selected_entity):
     electricity_consumption_pie_chart = alt.Chart(source).mark_arc(innerRadius=50).encode(
         theta = 'Value',
         color = alt.Color('Energy Source', legend=alt.Legend(title='Energy Source')).scale(domain=domain, range=range_),
-        tooltip=['Energy Source', 'Percentage','Value']
+        tooltip=[alt.Tooltip('Energy Source', title="Source"), 'Percentage', alt.Tooltip('Value', title="Amount in TWh")]
     ).properties(
         title = {"text": ["Electricity Generation", f"in {selected_entity}"]},
         width='container', height=150
