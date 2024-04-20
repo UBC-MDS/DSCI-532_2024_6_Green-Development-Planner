@@ -1,5 +1,5 @@
 from dash import dcc
-from data.data import metrics, gdf, processed_data
+from data.data import metrics, gdf
 
 # Metric Dropdown
 metric_dropdown = dcc.Dropdown(
@@ -25,6 +25,6 @@ year_slider = dcc.Slider(
 # Country Dropdown
 country_dropdown = dcc.Dropdown(
     id='entity-dropdown',
-    options=[{'label': entity, 'value': entity} for entity in processed_data['Entity'].unique()],
-    value=processed_data['Entity'].unique()[0],  # default value
+    options=[{'label': entity, 'value': entity} for entity in gdf['Entity'].unique()],
+    value=gdf['Entity'].unique()[0],  # default value
 )
