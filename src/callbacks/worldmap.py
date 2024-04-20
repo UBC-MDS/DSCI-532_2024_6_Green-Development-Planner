@@ -75,9 +75,10 @@ def create_chart(variable, year_slider):
 # Callback to update the dropdown box based on the click on the map
 @callback(
     Output('entity-dropdown', 'value'),
-    [Input('world', 'signalData')] 
+    [Input('world', 'signalData'),
+     Input('entity-dropdown', 'value')] 
 )
-def update_dropdown(clicked_region):
+def update_dropdown(clicked_region, selected_country):
 
     if clicked_region and 'Entity' in clicked_region['select_region']:
         entity = clicked_region['select_region']['Entity']
@@ -88,4 +89,4 @@ def update_dropdown(clicked_region):
         
         return no_update
     
-    return no_update if clicked_region is None else gdf['Entity'].unique()[0]
+    return selected_country
