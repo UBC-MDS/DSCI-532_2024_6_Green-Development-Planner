@@ -9,6 +9,8 @@ gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometr
 
 consump_pie_data = pd.read_parquet("data/preprocessed/consump_pie_data.parquet")
 elec_pie_data = pd.read_parquet("data/preprocessed/elec_pie_data.parquet")
+access_to_electricity = pd.read_parquet("data/preprocessed/access_to_electricity.parquet")
+financial_flow = pd.read_parquet("data/preprocessed/financial_flow.parquet")
 
 # For deployment on render
 # raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
