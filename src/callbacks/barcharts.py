@@ -27,7 +27,7 @@ def update_bar_charts(selected_entity):
         x=alt.X('value', title='Access to Electricity (%)'),  # Change the title if needed
         y=alt.Y('category', title=None).sort([f'{selected_entity}', 'Average' ]),
         color=alt.Color('category', legend=None).scale(domain=domain, range=range_),  # Move legend to top-left
-        tooltip=["category", 'value'],
+        tooltip=[alt.Tooltip('category', title='Country'), alt.Tooltip('value', title='Value', format='.2%')],
     ).properties(
         title=f"Access to Electricity - {selected_entity} vs Average",
         width='container'
@@ -42,7 +42,7 @@ def update_bar_charts(selected_entity):
         x=alt.X('value', title='Foreign Aid (US $)'),
         y=alt.Y('category', title=None).sort([f'{selected_entity}', 'Average' ]),
         color=alt.Color('category', legend=None).scale(domain=domain, range=range_),  # Remove legend for color encoding
-        tooltip=['category', 'value'],
+        tooltip=[alt.Tooltip('category', title='Country'), alt.Tooltip('value', title='Value', format='$,.2f')],
     ).properties(
         title=f"Recieved Foreign Aid - {selected_entity} vs Average",
         width='container'

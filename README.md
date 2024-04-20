@@ -18,7 +18,7 @@ We have developed a dashboard to illuminate these critical insights for decision
 
 Our dashboard offers a high-level overview of renewable energy metrics across the globe. The interactive world map enables users to select and visualize data spanning 20 years, featuring six key indicators: the percentage of renewable energy in total energy consumption, electricity access rates (% of population), financial investments in clean energy projects, and electricity generation breakdown by sources (i.e., fossil fuels, nuclear, and renewables) for each country. A time slider allows for a historical perspective on these indicators.
 
-On the right, the dashboard provides a country-specific analysis with two pie charts, two bar charts and one line chart. The pie charts display the average share of renewable energy and the electricity generation mix over the last five years. The bar charts compares a country's electricity access and financial flow for clean energy against the world average, again over the last five years. By using the average data of a latest five-year period, we ensure that the information captures the most recent situations, offering users an up-to-date, actionable snapshot of energy development. The line chart show the country's GPD per capita over a period of 20 years.
+On the right, the dashboard provides a country-specific analysis with two arc charts, two bar charts and two cards. The arc charts display the ratio of energy consumption by energy source and the electricity generation mix over the last five years. The bar charts compares a country's electricity access and financial flow for clean energy against the world average, again over the last five years. By using the average data of a latest five-year period, we ensure that the information captures the most recent situations, offering users an up-to-date, actionable snapshot of energy development. The two cards at the bottom display the selected country's population and GDP per capita.
 
 ![demo](img/demo.gif)
 
@@ -65,18 +65,26 @@ if __name__ == "__main__":
 Navigate into `src/data/data.py` and comment the section under `# For deployment on render`.
 
 ``` python
-raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
-processed_data = pd.read_csv("../data/preprocessed/processed_data.csv")
-world = gpd.read_file("../data/preprocessed/world.shp")
-gdf = gpd.read_file("../data/preprocessed/preprocessed_data.shp", geometry="geometry")
+world = gpd.read_parquet("../data/preprocessed/world_countries.parquet")
+gdf = gpd.read_parquet("../data/preprocessed/preprocessed_gdf.parquet")
+consump_pie_data = pd.read_parquet("../data/preprocessed/consump_pie_data.parquet")
+elec_pie_data = pd.read_parquet("../data/preprocessed/elec_pie_data.parquet")
+access_to_electricity = pd.read_parquet("../data/preprocessed/access_to_electricity.parquet")
+financial_flow = pd.read_parquet("../data/preprocessed/financial_flow.parquet") 
+gdp_per_capita = pd.read_parquet("../data/preprocessed/gdp_per_capita.parquet")
+population = pd.read_parquet("../data/preprocessed/population_df.parquet")
 ```
 
 Then uncomment the section under `# For development on local machine`.
 ```python
-# raw_data = pd.read_csv("data/raw/global_data_sustainable_energy.csv")
-# processed_data = pd.read_csv("data/preprocessed/processed_data.csv")
-# world = gpd.read_file("data/preprocessed/world.shp")
-# gdf = gpd.read_file("data/preprocessed/preprocessed_data.shp", geometry="geometry")
+# world = gpd.read_parquet("data/preprocessed/world_countries.parquet")
+# gdf = gpd.read_parquet("data/preprocessed/preprocessed_gdf.parquet")
+# consump_pie_data = pd.read_parquet("data/preprocessed/consump_pie_data.parquet")
+# elec_pie_data = pd.read_parquet("data/preprocessed/elec_pie_data.parquet")
+# access_to_electricity = pd.read_parquet("data/preprocessed/access_to_electricity.parquet")
+# financial_flow = pd.read_parquet("data/preprocessed/financial_flow.parquet") 
+# gdp_per_capita = pd.read_parquet("data/preprocessed/gdp_per_capita.parquet")
+# population = pd.read_parquet("data/preprocessed/population_df.parquet")
 ```
 
 Note: Before deployment on render.com, remember to reverse this step (comment the development section and uncomment the deployment section).

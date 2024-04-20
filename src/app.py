@@ -14,6 +14,7 @@ from components.cards import gdp_per_capita_card, population_card
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, 'src/assets/styles.css'])
+app.title = "Green Development Planner"
 server = app.server
 
 # App layout of left side
@@ -50,7 +51,6 @@ right_layout = dbc.Container([
 app.layout = dbc.Container([
     dbc.Col(title, width=12),
     dbc.Col(subtitle, width = 12),
-    html.Br(),
     dbc.Row([
         dbc.Col(left_layout, width=6, style={"border": "2px solid #B8D9B8", "padding": "20px", "border-right": "none"}),
         dbc.Col(right_layout, width=6, style={"border": "2px solid #B8D9B8", "padding": "20px"}),
