@@ -11,6 +11,7 @@ consump_pie_data = pd.read_parquet("data/preprocessed/consump_pie_data.parquet")
 elec_pie_data = pd.read_parquet("data/preprocessed/elec_pie_data.parquet")
 access_to_electricity = pd.read_parquet("data/preprocessed/access_to_electricity.parquet")
 financial_flow = pd.read_parquet("data/preprocessed/financial_flow.parquet")
+gdp_per_capita = pd.read_parquet("data/preprocessed/gdp_per_capita.parquet")
 
 # For deployment on render
 # raw_data = pd.read_csv("../data/raw/global_data_sustainable_energy.csv")
