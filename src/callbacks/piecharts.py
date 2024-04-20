@@ -1,6 +1,6 @@
 from dash import callback, Output, Input
 import altair as alt
-import pandas as pd
+import functools
 
 from data.data import consump_pie_data, elec_pie_data
 
@@ -9,6 +9,7 @@ from data.data import consump_pie_data, elec_pie_data
     Output('pie-chart', 'spec'),
     Input('entity-dropdown', 'value')
 )
+@functools.lru_cache()
 def update_energy_consumption_chart(selected_entity):
 
     pie_data = consump_pie_data[consump_pie_data['Entity'] == selected_entity]
@@ -34,6 +35,7 @@ def update_energy_consumption_chart(selected_entity):
     Output('electricity-production', 'spec'),
     Input('entity-dropdown', 'value')
 )
+@functools.lru_cache()
 def update_electricty_generation_chart(selected_entity):
 
     source = elec_pie_data[elec_pie_data['Entity'] == selected_entity]

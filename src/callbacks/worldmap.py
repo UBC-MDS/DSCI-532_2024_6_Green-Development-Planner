@@ -1,7 +1,8 @@
 from dash import callback, Output, Input, no_update
 import altair as alt
+import functools
 
-from data.data import processed_data, world, gdf
+from data.data import world, gdf
 
 # Callback to update world map based on selection of metric and year
 @callback(
@@ -9,6 +10,7 @@ from data.data import processed_data, world, gdf
     [Input('variable', 'value'),
      Input('year_slider', 'value')]
 )
+@functools.lru_cache()
 def create_chart(variable, year_slider):
 
     gdf_filtered = gdf[gdf['Year'] == year_slider]
@@ -21,33 +23,6 @@ def create_chart(variable, year_slider):
     click = alt.selection_point(
         fields=['Entity'], name='select_region', on='click'
     )
-
-    # non_missing_data = alt.Chart(gdf_filtered).mark_geoshape(
-    #     stroke='#666666',
-    #     strokeWidth=1
-    # ).project(
-    #     'equalEarth'
-    # ).encode(
-    #     color=alt.Color(variable, legend=alt.Legend(
-    #                                     orient='none', 
-    #                                     legendX=10, legendY=460, 
-    #                                     direction='horizontal', 
-    #                                     title=variable, 
-    #                                     gradientLength=300, 
-    #                                     labelLimit=500, 
-    #                                     titleLimit=500
-    #                                 )
-    #     ).scale(scheme="greens"),
-    #     tooltip=['Entity', variable],
-    #     stroke=alt.condition(hover, alt.value('white'), alt.value('#666666')), 
-    #     order=alt.condition(hover, alt.value(1), alt.value(0))
-    # ).properties(
-    #     width=600,
-    #     height=500,
-    # ).add_params(
-    #     hover,
-    #     click
-    # )
 
     def plot_chart(variable, color_scheme):
         return alt.Chart(gdf_filtered).mark_geoshape(
@@ -114,4 +89,4 @@ def update_dropdown(clicked_region):
         
         return no_update
     
-    return processed_data['Entity'].unique()[0]
+    return no_update
