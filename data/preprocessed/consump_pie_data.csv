@@ -1,8 +1,8 @@
 Entity,category,value,Percentage
-Afghanistan,Renewables,18.9,19%
+Afghanistan,Renewables,18.900000000000002,19%
 Albania,Renewables,0.0,0%
-Algeria,Renewables,0.1425,0%
-Angola,Renewables,54.3325,54%
+Algeria,Renewables,0.14250000000000002,0%
+Angola,Renewables,54.332499999999996,54%
 Antigua and Barbuda,Renewables,0.7525,1%
 Argentina,Renewables,10.2525,10%
 Armenia,Renewables,11.795,12%
@@ -88,11 +88,11 @@ Kuwait,Renewables,0.03,0%
 Kyrgyzstan,Renewables,24.39,24%
 Latvia,Renewables,40.8925,41%
 Lebanon,Renewables,4.535,5%
-Lesotho,Renewables,40.715,41%
+Lesotho,Renewables,40.714999999999996,41%
 Liberia,Renewables,85.4325,85%
 Libya,Renewables,2.7125,3%
 Lithuania,Renewables,33.1275,33%
-Luxembourg,Renewables,15.3425,15%
+Luxembourg,Renewables,15.342500000000001,15%
 Madagascar,Renewables,82.91999999999999,83%
 Malawi,Renewables,75.17,75%
 Malaysia,Renewables,5.0175,5%
@@ -100,7 +100,7 @@ Maldives,Renewables,1.1725,1%
 Mali,Renewables,76.445,76%
 Malta,Renewables,7.9325,8%
 Mauritania,Renewables,27.0175,27%
-Mauritius,Renewables,9.47,9%
+Mauritius,Renewables,9.469999999999999,9%
 Mexico,Renewables,9.895,10%
 Mongolia,Renewables,3.29,3%
 Montenegro,Renewables,40.25,40%
@@ -112,7 +112,7 @@ Nauru,Renewables,0.5125,1%
 Nepal,Renewables,76.8175,77%
 Netherlands,Renewables,6.97,7%
 New Caledonia,Renewables,4.7375,5%
-New Zealand,Renewables,30.6075,31%
+New Zealand,Renewables,30.607499999999998,31%
 Nicaragua,Renewables,50.15,50%
 Niger,Renewables,81.27250000000001,81%
 Nigeria,Renewables,82.005,82%
@@ -138,7 +138,7 @@ Samoa,Renewables,35.8625,36%
 Sao Tome and Principe,Renewables,38.14,38%
 Saudi Arabia,Renewables,0.02,0%
 Senegal,Renewables,37.0,37%
-Serbia,Renewables,20.8725,21%
+Serbia,Renewables,20.872500000000002,21%
 Seychelles,Renewables,1.295,1%
 Sierra Leone,Renewables,74.9,75%
 Singapore,Renewables,0.73,1%
@@ -161,7 +161,7 @@ Tonga,Renewables,1.885,2%
 Trinidad and Tobago,Renewables,0.4325,0%
 Tunisia,Renewables,12.0825,12%
 Turkey,Renewables,12.645,13%
-Turkmenistan,Renewables,0.0574999999999999,0%
+Turkmenistan,Renewables,0.057499999999999996,0%
 Tuvalu,Renewables,8.68,9%
 Uganda,Renewables,90.47,90%
 Ukraine,Renewables,6.58,7%
@@ -177,7 +177,7 @@ Zimbabwe,Renewables,81.598,82%
 Afghanistan,Other,81.1,81%
 Albania,Other,100.0,100%
 Algeria,Other,99.8575,100%
-Angola,Other,45.6675,46%
+Angola,Other,45.667500000000004,46%
 Antigua and Barbuda,Other,99.2475,99%
 Argentina,Other,89.7475,90%
 Armenia,Other,88.205,88%
@@ -263,7 +263,7 @@ Kuwait,Other,99.97,100%
 Kyrgyzstan,Other,75.61,76%
 Latvia,Other,59.1075,59%
 Lebanon,Other,95.465,95%
-Lesotho,Other,59.285,59%
+Lesotho,Other,59.285000000000004,59%
 Liberia,Other,14.567499999999995,15%
 Libya,Other,97.2875,97%
 Lithuania,Other,66.8725,67%
