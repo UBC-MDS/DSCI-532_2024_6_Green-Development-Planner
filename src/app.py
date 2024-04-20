@@ -14,6 +14,7 @@ from components.cards import gdp_per_capita_card, population_card
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, 'src/assets/styles.css'])
+app.title = "Green Development Planner"
 server = app.server
 
 # App layout of left side
